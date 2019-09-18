@@ -1,0 +1,65 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Berners-Lee!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    
+    <section>
+        <title>Olvasónapló: C++: Benedek Zoltán, Levendovszky Tihamér Szoftverfejlesztés C++ nyelven és 
+            Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I--II.II.</title>
+        <para>
+            
+        </para>
+        <para>
+            A C++ valamint a Java nyelv is magasszintű programozási nyelvnek számít. Mindkettő objektumorientált, 
+            azonban mivel a C++ nyelv hamarabb alakult ki így kissebb-nagyobb eltérések találhatóak a két nyelv között.
+        </para>
+        <para>
+            A C++ a C nyelvtől örökölt gépközeli konstrukciókat, ebből adódik sebessége. A Java nyelv pedig a C++-ból vett át sok mindent.
+            Azonban van egy lényeges eltérés, hogy az Java nyelv a mutatók helyett referenciákat használ, így biztonságosabb, megbízhatóbb programokat lehet írni.
+            Valamint a prgoramok hordozhatósága is eltér. Például ha egy Linuxon írt C++ kódot akarunk átvinni Windowsra az nem biztos, hogy működni fog, de
+            ha egy Java kódot akarunk futtani máshol az jól fog szuperálni feltéve, hogy van JVM(Java Virtual Machine) a gépen. Mivel ez a Java bájtkódot fogja futtani, 
+            így ez platformfüggetlen lesz.
+        </para>
+        <para>
+            Szintaktikában is találunk eltéréseket a két nyelv között.
+        </para>
+        <para>
+            Hasonlítsuk össze mondjuk ezt a két Hello world! programot.
+        </para>
+        <para>
+            C++-ban:
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+        #include <iostream>
+        using namespace std;
+        int main() 
+        {
+            cout << "Hello World!" << endl;
+            return 0;
+        }
+        ]]>
+        </programlisting>
+        <para>
+            Java-ban:
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+        public class HelloWord {
+            public static void main(String[] args) {
+                System.out.printlm("Hello World!");
+            }
+        }
+        ]]>
+        </programlisting>
+        <para>
+            Amint látható a Java nagyrészben osztályalapú.
+        </para>
+        
+    </section>
+    
+</chapter>
+
