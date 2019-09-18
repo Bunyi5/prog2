@@ -7,8 +7,10 @@
     </info>
     
     <section>
-        <title>Olvasónapló: C++: Benedek Zoltán, Levendovszky Tihamér Szoftverfejlesztés C++ nyelven és 
-            Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I--II.II.</title>
+        <title>
+            Olvasónapló: C++: Benedek Zoltán, Levendovszky Tihamér Szoftverfejlesztés C++ nyelven és 
+            Java: Nyékyné Dr. Gaizler Judit et al. Java 2 útikalauz programozóknak 5.0 I--II.II.
+        </title>
         <para>
             
         </para>
@@ -56,9 +58,51 @@
         ]]>
         </programlisting>
         <para>
-            Amint látható a Java nagyrészben osztályalapú.
+            Amint látható a Java nagyrészben osztályalapú. Az osztályoknak különböző
+            elérése lehet: public, protected, private. Az osztályokon belül létrehozhatunk
+            változókat, függvényeket.
         </para>
         
+        
+    </section>
+    
+    <section>
+        <title>
+            Olvasónapló: Python: Forstner Bertalan, Ekler Péter, Kelényi Imre: Bevezetés a mobilprogramozásba.
+            Gyors protot ípus fejlesztés Python és Java nyelven
+        </title>
+        <para>
+            A Python támogatja a funkcinális valamint az imperatív nyelveket is.
+            Legfőbb jellemzője, ami teljesen eltér a többi magasszintű programozási nyelvtől,
+            hogy behúzásalapú a szintaxisa, tehát semmilyen kapcsos zárójelre vagy
+            explicit kulcsszóra nincs szükség. Valamint a sorok végén már megszokott
+            pontosvessző sem kell.
+        </para>
+        <programlisting language="python">
+        <![CDATA[
+        if 1 < 2
+            print("Nagyobb!")
+        else:
+            print("Kissebb!")
+        ]]>
+        </programlisting>
+        <para>
+            A Python egy objektumorientált nyelv, tehát minden adatot objektumok reprezentálnak.
+            A változók típusainak explicit megadására sincs szükség, a rendszer futási időben
+            dönti el a változók típusát.
+        </para>
+        <para>
+            Ilyen egyszerűen néz ki Phytonban egy dekrelálás:
+        </para>
+        <programlisting language="python">
+        <![CDATA[
+        name = "Ádám"
+        ]]>
+        </programlisting>
+        <para>
+            A nyelvben definiálhatunk osztályokat is és ezeknek példányai az objektumok.
+            Az osztályok attribútumai lehetnek objektumok vagy függvények is.
+        </para>
     </section>
     
 </chapter>
