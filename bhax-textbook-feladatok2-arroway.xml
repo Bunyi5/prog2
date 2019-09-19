@@ -5,37 +5,380 @@
             <keyword/>
         </keywordset>
     </info>
-
+    
     <section>
-        <title>A BPP algoritmus Java megvalósítása</title>
+        <title>OO szemlélet</title>
         <para>
+            A polártranszformációs generátor egy széles körben elterjedt random generátor.
+            Olyannyira elterjedt formája ez a random szám generálásnak, hogy a 
+            Java.util.Random osztály is ezt a módszert alkalmazza.
         </para>
         <para>
-            Megoldás videó:
+            Íme a Java kód teljes egészében:
         </para>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
-    </section>        
+        <programlisting language="java">
+        <![CDATA[
+public class PolarGenerator {
 
+    boolean nincsTarolt = true;
+    double tarolt;
+
+    public PolarGenerator() {
+        nincsTarolt = true;
+    }
+
+    public double kovetkezo() {
+        if(nincsTarolt) {
+            double u1, u2, v1, v2, w;
+            do {
+                u1 = Math.random();
+                u2 = Math.random();
+
+                v1 = 2*u1 - 1;
+                v2 = 2*u2 - 1;
+
+                w = v1*v1 + v2*v2;
+                
+            } while(w > 1);
+
+            double r = Math.sqrt((-2*Math.log(w))/w);
+
+            tarolt = r*v2;
+            nincsTarolt = !nincsTarolt;
+
+            return r*v1;
+        } else {
+            nincsTarolt = !nincsTarolt;
+            return tarolt;
+        }
+    }
+
+
+    public static void main(String[] args) {
+
+        PolarGenerator g = new PolarGenerator();
+
+        for(int i=0; i<10; ++i)
+            System.out.println(g.kovetkezo());
+    }
+}
+        ]]>
+        </programlisting>
+        <para>
+            A következő sorokban részenként magyarázom el mi történik a kódban.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+boolean nincsTarolt = true;
+double tarolt;
+        ]]>
+        </programlisting>
+        <para>
+            A PolárGenerátor classban létrehozunk két változót. Az egyik boolean típusú, amely
+            azt fogja megmondani, hogy éppen van-e tárolt értékünk. A másik maga a tárolt érték
+            tartalmazza, majd amit korábban kiszámítottunk.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+public PolarGenerator() {
+    nincsTarolt = true;
+}
+        ]]>
+        </programlisting>
+        <para>
+            Ez a class publikus konstruktora, amely a nincsTarolt-at igazra állítja.
+            Erre azért van szükség, hogy tudjuk éppen van-e tárolt érték vagy nincs.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+public double kovetkezo() {
+    if(nincsTarolt) {
+        double u1, u2, v1, v2, w;
+        do {
+            u1 = Math.random();
+            u2 = Math.random();
+
+            v1 = 2*u1 - 1;
+            v2 = 2*u2 - 1;
+
+            w = v1*v1 + v2*v2;
+                
+        } while(w > 1);
+
+        double r = Math.sqrt((-2*Math.log(w))/w);
+
+        tarolt = r*v2;
+        nincsTarolt = !nincsTarolt;
+
+        return r*v1;
+    } else {
+        nincsTarolt = !nincsTarolt;
+        return tarolt;
+    }
+}
+        ]]>
+        </programlisting>
+        <para>
+            Ez a program lelke ahol a kovetkezo() metódus végzi a meghatározó 
+            számítást. Ha a nincsTarolt értéke igaz, akkor számol két random értéket.
+            Az egyiket elmenti a tarolt változóba, a másikat pedig visszaadja.
+            Amennyiban a nincsTarolt értéke hamis, akkor pedig a tárolt értéket fogja
+            visszaadni.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+public static void main(String[] args) {
+
+    PolarGenerator g = new PolarGenerator();
+
+    for(int i=0; i<10; ++i)
+        System.out.println(g.kovetkezo());
+}
+        ]]>
+        </programlisting>
+        <para>
+            A main metódusal indul el a program. Itt példányosítjuk a PolárGenerátor 
+            classot. Ezután egy for ciklussal 10-szer kiíratjuk a meghívott kovetkezo()
+            metódus értékét. Minden második érték a tarolt változóból visszadott
+            érték lesz.
+            Ezeket az értékeket generálta nekem:
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="polarjavacmd.jpg"/>
+                </imageobject>
+        </mediaobject>
+        <para>
+            Az érdekesség az még az itt, hogy a Java fejlesztők egy nagyon hasonló
+            módon oldották meg a java.util.Random osztályban a Random szám
+            generálást. Íme:
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="polarjavaRandom.jpg"/>
+                </imageobject>
+        </mediaobject>
+        <para>
+            C++-ban így néz ki a teljes kód:
+        </para>
+        <programlisting>
+        <![CDATA[
+#include <iostream>
+#include <tgmath.h>
+#include <cstdlib>
+#include <time.h>
+
+using namespace std;
+
+class PolarGenerator {
+private:
+    bool nincsTarolt;
+    double tarolt;
+
+public:
+    PolarGenerator() {
+        nincsTarolt = true;
+        srand (time(NULL));
+    }
+
+
+    double kovetkezo() {
+        if (nincsTarolt) {
+            double u1, u2, v1, v2, w;
+
+            do {
+                u1 = rand() / (RAND_MAX + 1.0);
+                u2 = rand() / (RAND_MAX + 1.0);
+
+                v1 = 2 * u1 - 1;
+                v2 = 2 * u2 - 1;
+
+                w = v1 * v1 + v2 * v2;
+            } while (w > 1);
+
+            double r = sqrt((-2 * log(w)) / w);
+            tarolt = r * v2;
+            nincsTarolt = !nincsTarolt;
+
+            return r * v1;
+        }
+        else {
+            nincsTarolt = !nincsTarolt;
+            return tarolt;
+        }
+    }
+};
+
+
+int main(int argc, char** argv) {
+    PolarGenerator g;
+
+    for (int i = 0; i < 10; ++i)
+        cout << g.kovetkezo() << endl;
+
+    return 0;
+}
+        ]]>
+        </programlisting>
+        <para>
+            A következő sorokban részenként magayrázom el mi történik a kódban.
+        </para>
+        <programlisting>
+        <![CDATA[
+private:
+    bool nincsTarolt;
+    double tarolt;
+        ]]>
+        </programlisting>
+        <para>
+            Ez a Polárgenrátor class private része. Ez tartalmaz egy bool és egy double
+            típusú változót. Ezek a változók csak az osztályon belül lesznek elérhetőek.
+        </para>
+        <programlisting>
+        <![CDATA[
+public:
+    PolarGenerator() {
+        nincsTarolt = true;
+        srand (time(NULL));
+    }
+
+
+    double kovetkezo() {
+        if (nincsTarolt) {
+            double u1, u2, v1, v2, w;
+
+            do {
+                u1 = rand() / (RAND_MAX + 1.0);
+                u2 = rand() / (RAND_MAX + 1.0);
+
+                v1 = 2 * u1 - 1;
+                v2 = 2 * u2 - 1;
+
+                w = v1 * v1 + v2 * v2;
+            } while (w > 1);
+
+            double r = sqrt((-2 * log(w)) / w);
+            tarolt = r * v2;
+            nincsTarolt = !nincsTarolt;
+
+            return r * v1;
+        }
+        else {
+            nincsTarolt = !nincsTarolt;
+            return tarolt;
+        }
+    }
+};
+        ]]>
+        </programlisting>
+        <para>
+            Ez pedig a class public része, amelyben a változók és metódusok
+            példányosítás után elérhetőek az osztályon kívül is.
+        </para>
+        <programlisting>
+        <![CDATA[
+PolarGenerator() {
+    nincsTarolt = true;
+    srand (time(NULL));
+}
+        ]]>
+        </programlisting>
+        <para>
+            Az osztály nevével megegyező metódust konstruktornak nevezzük. Az ebben
+            lévő kódok példányosításkor hajtódnak végre.
+        </para>
+        <programlisting>
+        <![CDATA[
+double kovetkezo() {
+    if (nincsTarolt) {
+        double u1, u2, v1, v2, w;
+
+        do {
+            u1 = rand() / (RAND_MAX + 1.0);
+            u2 = rand() / (RAND_MAX + 1.0);
+
+            v1 = 2 * u1 - 1;
+            v2 = 2 * u2 - 1;
+
+            w = v1 * v1 + v2 * v2;
+        } while (w > 1);
+
+        double r = sqrt((-2 * log(w)) / w);
+        tarolt = r * v2;
+        nincsTarolt = !nincsTarolt;
+
+        return r * v1;
+    }
+    else {
+        nincsTarolt = !nincsTarolt;
+        return tarolt;
+    }
+}
+        ]]>
+        </programlisting>
+        <para>
+            A kovetkezo metódusban szinte semmilyen lényegi eltérés nincs a Java kódhoz
+            képest. Ugynaz történik ha nincsTarolt igaz akkor generál randomot, ha
+            pedig hamis, akkor visszaadja az eltárolt értéket.
+        </para>
+        <programlisting>
+        <![CDATA[
+int main(int argc, char** argv) {
+    PolarGenerator g;
+
+    for (int i = 0; i < 10; ++i)
+        cout << g.kovetkezo() << endl;
+
+    return 0;
+}
+        ]]>
+        </programlisting>
+        <para>
+            A main metódusban szintén, mint a Javanál példányosítunk és egy for
+            ciklussal 10-szer visszadjuk a kovetkezo() metódus értékét.
+        </para>
+        <para>
+            C++-ban generált értékek:
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="polarcppcmd.jpg"/>
+                </imageobject>
+        </mediaobject>
+    </section>
+    
+    
+    
+    
+    
+    
+    
     <section>
-        <title>Java osztályok a Pi-ben</title>
+        <title>Homokozó</title>
         <para>
-            Az előző feladat kódját fejleszd tovább: vizsgáld, hogy Vannak-e Java osztályok a Pi hexadecimális kifejtésében!
+            valami
         </para>
+    </section>
+    
+    <section>
+        <title>"Gagyi"</title>
         <para>
-            Megoldás videó:
+            valami
         </para>
+    </section>
+    
+    <section>
+        <title>Yoda</title>
         <para>
-            Megoldás forrása:                
+            valami
         </para>
+    </section>
+    
+    <section>
+        <title>Kódolás from scratch</title>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            valami
         </para>
-    </section>        
-        
+    </section>       
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                

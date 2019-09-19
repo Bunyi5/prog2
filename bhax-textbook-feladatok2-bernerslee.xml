@@ -34,7 +34,7 @@
         <para>
             C++-ban:
         </para>
-        <programlisting language="c++">
+        <programlisting>
         <![CDATA[
         #include <iostream>
         using namespace std;
