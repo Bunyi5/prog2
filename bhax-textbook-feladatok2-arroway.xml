@@ -75,8 +75,8 @@ double tarolt;
         </programlisting>
         <para>
             A PolárGenerátor classban létrehozunk két változót. Az egyik boolean típusú, amely
-            azt fogja megmondani, hogy éppen van-e tárolt értékünk. A másik maga a tárolt érték
-            tartalmazza, majd amit korábban kiszámítottunk.
+            azt fogja megmondani, hogy éppen van-e tárolt értékünk. A másik maga a tárolt értéket
+            tartalmazza, amit korábban kiszámítottunk.
         </para>
         <programlisting language="java">
         <![CDATA[
@@ -149,7 +149,7 @@ public static void main(String[] args) {
                 </imageobject>
         </mediaobject>
         <para>
-            Az érdekesség az még az itt, hogy a Java fejlesztők egy nagyon hasonló
+            Az érdekesség az még itt, hogy a Java fejlesztők egy nagyon hasonló
             módon oldották meg a java.util.Random osztályban a Random szám
             generálást. Íme:
         </para>
@@ -221,7 +221,7 @@ int main(int argc, char** argv) {
         ]]>
         </programlisting>
         <para>
-            A következő sorokban részenként magayrázom el mi történik a kódban.
+            A következő sorokban részenként magyarázom el mi történik a kódban.
         </para>
         <programlisting>
         <![CDATA[
@@ -231,7 +231,7 @@ private:
         ]]>
         </programlisting>
         <para>
-            Ez a Polárgenrátor class private része. Ez tartalmaz egy bool és egy double
+            Ez a Polárgenerátor class private része. Ez tartalmaz egy bool és egy double
             típusú változót. Ezek a változók csak az osztályon belül lesznek elérhetőek.
         </para>
         <programlisting>
@@ -318,7 +318,7 @@ double kovetkezo() {
         </programlisting>
         <para>
             A kovetkezo metódusban szinte semmilyen lényegi eltérés nincs a Java kódhoz
-            képest. Ugynaz történik ha nincsTarolt igaz akkor generál randomot, ha
+            képest. Ugyanaz történik ha nincsTarolt igaz akkor generál randomot, ha
             pedig hamis, akkor visszaadja az eltárolt értéket.
         </para>
         <programlisting>
@@ -346,13 +346,7 @@ int main(int argc, char** argv) {
                 </imageobject>
         </mediaobject>
     </section>
-    
-    
-    
-    
-    
-    
-    
+
     <section>
         <title>Homokozó</title>
         <para>
@@ -362,10 +356,89 @@ int main(int argc, char** argv) {
     
     <section>
         <title>"Gagyi"</title>
+        <programlisting>
+<![CDATA[while (x <=t && x>=t && t !=x);]]>
+        </programlisting>
         <para>
-            valami
+            Erre a tesztkérdésre kellett választ adnunk, hogy bizonyos számoknál
+            miért jön létre végtelen ciklus és bizonyosnál miért nem.
         </para>
+        <programlisting language="java">
+        <![CDATA[
+public class Gagyi {
+
+    public static void main (String[]args){
+
+        Integer x = -128;
+        Integer t = -128;
+
+    while (x <= t && x >= t && t != x);
+    }
+}
+        ]]>
+        </programlisting>
+        <para>
+            Például itt -128-nál nem jön létre végtelen ciklus.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+public class GagyiInfinity {
+
+    public static void main (String[]args){
+
+       Integer x = -129;
+       Integer t = -129;
+
+    while (x <= t && x >= t && t != x);
+    }
+}
+        ]]>
+        </programlisting>
+        <para>
+            Azonban -129-el már végtelen ciklus jön létre.
+        </para>
+        <programlisting language="java">
+        <![CDATA[
+public static Integer valueOf(int i) {
+    if (i >= IntegerCache.low && i <= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+        ]]>
+        </programlisting>
+        <para>
+            A válasz, hogy miért jön létre -129-el végtelen ciklus, míg -128-al semmi
+            sem történik ebben a kódcsipetben rejlik, ami a java.lang.Integer
+            osztályban található.
+        </para>
+        <para>
+            Elsősorban mindenképpen tudni kell, hogy a !=, == operátorok az objektumok
+            címét hasonlítják össze, valamint a Java feltételezi, hogy
+            a programok sokat dolgoznak, majd kis számokkal,
+            így a poolban már előre elkészített számok vannak 127-től -128-ig.
+            Tehát amikor létrehozunk két Integer objektumot és az a poolon belül van,
+            akkor a két objektum címe meg fog egyezni. Pontosan ez történik a -128-nál,
+            lérehozzuk a két objektumot x-et és y-ot, azonban a poolból kapjuk meg
+            mindkettőt egy már előre elkészített objektumot így a cím megegyezik.
+            Ezért a x != y hamis értéket fog adni, így a while ciklus feltétele nem
+            teljesül és nem jön létre végtelen ciklus.
+        </para>
+        <programlisting language="java">
+        <![CDATA[return new Integer(i);]]>
+        </programlisting>
+        <para>
+            Ha nem esik bele viszont a poolba a szám akkor, itt látszik, hogy létrehoz
+            egy új Integert. Mivel a -129 nem esik bele így két különböző című objektumot
+            fog létrehozni és így a while ciklus feltétele igaz lesz és végtelen
+            ciklust kapunk.
+        </para>
+        
     </section>
+    
+    
+    
+    
+    
     
     <section>
         <title>Yoda</title>
