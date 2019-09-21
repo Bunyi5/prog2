@@ -515,9 +515,245 @@ if (myString.equals("something")) {
 
     <section>
         <title>Kódolás from scratch</title>
+        <para> Egy olyan feladatot kaptunk, hogy írjuk meg a BBP algoritmus megvalósítását. Ez egy
+            olyan algoritmus ami kiszámítja a Pi hexadecinmális számjegyeit egy megadott helyen. Íme
+            a kód: </para>
+        <programlisting language="java"><![CDATA[
+public class BBP {
+    String HexaJegyek;
+
+    public BBP(int d) {
+
+        double HexPi = 0.0;
+
+        double S1 = Sj(d, 1);
+        double S4 = Sj(d, 4);
+        double S5 = Sj(d, 5);
+        double S6 = Sj(d, 6);
+
+        HexPi = 4.0*S1 - 2.0*S4 - S5 - S6;
+
+        HexPi = HexPi - Math.floor(HexPi);
+
+        StringBuffer sb = new StringBuffer();
+
+        Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+
+            while(HexPi != 0.0) {
+
+                int jegy = (int)Math.floor(16.0d*HexPi);
+
+                if(jegy<10) {
+                    sb.append(jegy);
+                } else {
+                    sb.append(hexaJegyek[jegy-10]);
+                }
+
+                HexPi = (16.0d*HexPi) - Math.floor(16.0d*HexPi);
+
+            }
+
+            HexaJegyek = sb.toString();
+    }
+
+    public String toString() {
+        return HexaJegyek;
+    }
+
+    public double Sj(int d, int j) {
+
+        double Sj = 0.0;
+
+        for (int k = 0; k <= d; k++)
+            Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
+
+        return Sj - Math.floor(Sj);
+    }
+
+    public long n16modk(int n, int k) {
+
+        int t = 1;
+        while(t <=n)
+            t *= 2;
+
+        long r = 1;
+
+        while(true) {
+
+            if(n >= t) {
+                r = (16*r) % k;
+                n = n - t;
+            }
+
+            t = t/2;
+
+            if(t < 1)
+                break;
+
+            r = (r*r) % k;
+        }
+
+        return r;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new BBP(1000000));
+    }
+}
+        ]]></programlisting>
         <para>
-            valami
+            Nézzük részekre bontva:
         </para>
-    </section>       
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        <programlisting language="java"><![CDATA[
+String HexaJegyek;
+        ]]></programlisting>
+        <para> Először is létrehozunk a BBP classban egy változót. Ebben a változóban fogjuk tárolni
+            a végeredményt, tehát a Pi hexadecimális jegyeit az adott helyen. </para>
+        <para> Nézzük először a metódusokat, mert csak azután lehet megérteni a konstruktor
+            működését. </para>
+        <programlisting language="java"><![CDATA[
+public String toString() {
+    return HexaJegyek;
+}
+        ]]></programlisting>
+        <para> Legegyszerűbb a a toString() metódussal kezdeni. Ez egyszerűen visszaadja a végső
+            eredményt egy stringként, de ebben az esetben az eredményünk eleve string típusú így
+            nincs más dolgunk csak azt visszaadni. </para>
+        <programlisting language="java"><![CDATA[
+public long n16modk(int n, int k) {
+
+    int t = 1;
+    while(t <=n)
+        t *= 2;
+
+    long r = 1;
+
+    while(true) {
+
+        if(n >= t) {
+            r = (16*r) % k;
+            n = n - t;
+        }
+
+        t = t/2;
+
+        if(t < 1)
+            break;
+
+        r = (r*r) % k;
+    }
+    
+    return r;
+}
+        ]]></programlisting>
+        <para>
+            Az n16modk metódusban számoljuk ki bináris hatványozással a 16^n mod k értékét.
+        </para>
+        <programlisting language="java"><![CDATA[
+public double Sj(int d, int j) {
+
+    double Sj = 0.0;
+
+    for (int k = 0; k <= d; k++)
+        Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
+
+    return Sj - Math.floor(Sj);
+}
+        ]]></programlisting>
+        <para>
+            Az Sj metódus egy double értékkel fog visszatérni. A BBP algoritmus képlet
+            alapján fogja visszaadni ezt a számot.
+        </para>
+        <programlisting language="java"><![CDATA[
+public BBP(int d) {
+
+    double HexPi = 0.0;
+
+    double S1 = Sj(d, 1);
+    double S4 = Sj(d, 4);
+    double S5 = Sj(d, 5);
+    double S6 = Sj(d, 6);
+
+    HexPi = 4.0*S1 - 2.0*S4 - S5 - S6;
+
+    HexPi = HexPi - Math.floor(HexPi);
+
+    StringBuffer sb = new StringBuffer();
+
+    Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+
+    while(HexPi != 0.0) {
+
+        int jegy = (int)Math.floor(16.0d*HexPi);
+
+        if(jegy<10) {
+            sb.append(jegy);
+        } else {
+            sb.append(hexaJegyek[jegy-10]);
+        }
+
+        HexPi = (16.0d*HexPi) - Math.floor(16.0d*HexPi);
+
+    }
+
+    HexaJegyek = sb.toString();
+}
+        ]]></programlisting>
+        <para> Ez a rész a konstruktora a BBP classnak, ez mindenképpen le fog futni amikor
+            példányosítják a függvényt. Nézzük ezt is részekre bontva: </para>
+        <programlisting language="java"><![CDATA[
+double HexPi = 0.0;
+
+double S1 = Sj(d, 1);
+double S4 = Sj(d, 4);
+double S5 = Sj(d, 5);
+double S6 = Sj(d, 6);
+
+HexPi = 4.0*S1 - 2.0*S4 - S5 - S6;
+
+HexPi = HexPi - Math.floor(HexPi);
+        ]]></programlisting>
+        <para> Először is létrehoz 5 db változót. A HexPi-t azért, hogy legyen miben tárolni a
+            számot amit a képlet kiszámolása után megkapunk. Az S1, S4, S5, S6 változók részelemek
+            az alatta lévő képletben. A d változó az a szám itt amit a felhasználó ad meg, hogy
+            hányadik helyen számolja a Pi hexadecimális értékét. </para>
+        <programlisting language="java"><![CDATA[
+StringBuffer sb = new StringBuffer();
+
+Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+
+while(HexPi != 0.0) {
+
+    int jegy = (int)Math.floor(16.0d*HexPi);
+
+    if(jegy<10) {
+        sb.append(jegy);
+    } else {
+        sb.append(hexaJegyek[jegy-10]);
+    }
+
+    HexPi = (16.0d*HexPi) - Math.floor(16.0d*HexPi);
+
+}
+
+HexaJegyek = sb.toString();
+        ]]></programlisting>
+        <para> Itt létrehozunk egy StringBuffert amiben ideiglenesen elmentjük a hexadecimális
+            számokat stringként. Egy Character típusú tömböt is alkotunk, ebben tároljuk a 16-os
+            számrendszerben jelenlévő karaktereket. A while cikluson belül a stringbuffer-hez
+            hozzáfűzzük a hexa számjegyeket, majd a legalján átadjuk a HexaJegyek nevű stringnek. </para>
+        <programlisting language="java"><![CDATA[
+public static void main(String[] args) {
+    System.out.println(new BBP(1000000));
+}    
+        ]]></programlisting>
+        <para> A main metódusban a kiíratáson belül egy példányosítást láthatunk 10^6 értékkel.
+            Tehát a program a Pi 1 milliomodik helyen lévő hexadecimális számjegyeit fogja
+            visszaadni. Ahogy látható is: </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="BBPjavacmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </section>
 </chapter>                
