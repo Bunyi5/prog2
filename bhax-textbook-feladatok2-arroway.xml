@@ -346,13 +346,6 @@ int main(int argc, char** argv) {
                 </imageobject>
         </mediaobject>
     </section>
-
-    <section>
-        <title>Homokozó</title>
-        <para>
-            valami
-        </para>
-    </section>
     
     <section>
         <title>"Gagyi"</title>
@@ -434,19 +427,92 @@ public static Integer valueOf(int i) {
         </para>
         
     </section>
-    
-    
-    
-    
-    
-    
+
     <section>
         <title>Yoda</title>
         <para>
-            valami
+            A feladat az volt, hogy írjunk egy olyan Java kódot ami NullPoinetException
+            hibával kilép, ha nem követjük a Yoda conditionst. Íme a kód:
         </para>
+        <programlisting language="java"><![CDATA[
+public class Yoda {
+
+    public static void main(String[] args) {
+        
+        String myString = null;
+        
+        if ("something".equals(myString)) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
+        
+        //NullPointer Exception
+        if (myString.equals("something")) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
+    }
+}
+        ]]></programlisting>
+        <para> A Yoda conditions egy kódolási stílus, ahol a programkódot "fordítva" írjuk be, tehát
+            az értékadásnál a konstans értéket írjuk balra és jobbra kerül a változó amibe
+            elmentjük. A nevét is erről a szokatlan megfordított kódírásról kapta, Yoda-ról aki a
+            Star Wars-ban hasonlóan nem szabályszerűen alkalmazza az angolt. </para>
+        <programlisting language="java"><![CDATA[
+int érték = 3;
+if( érték == 3) {
+    System.out.println("Igaz");
+}
+        ]]></programlisting>
+        <para>
+            Ez ahogy rendesen írnánk egy kódot.
+        </para>
+        <programlisting language="java"><![CDATA[
+int érték = 3;
+if( 3 == érték) {
+    System.out.println("Igaz");
+}
+        ]]></programlisting>
+        <para> Ugyanaz a kód Yoda conditions-t használva. Mindakettővel teljesen normálisan fog
+            működni a program. </para>
+        <programlisting language="java"><![CDATA[
+if ("something".equals(myString)) {
+    System.out.println("True");
+} else {
+    System.out.println("False");
+}
+        ]]></programlisting>
+        <para>
+            Ez a rész egy tipiuksan Yoda conditions-t használva lett megírva. Látszik,
+            hogy az equal metódus bal oldalára került a konstans, jelen esetben egy
+            string. Az equal ezt hasonlítja össze a myStringben lévő null értékkel.
+            Ekkor semmilyen hiba nem fordul elő egyszerűen hamis lesz a visszadott érték.
+        </para>
+        <programlisting language="java"><![CDATA[
+if (myString.equals("something")) {
+    System.out.println("True");
+} else {
+    System.out.println("False");
+}
+        ]]></programlisting>
+        <para>
+            Ezek a sorok azonban nem használják a Yoda conditions-t, így NullPointerException-t
+            dobnak a Java-ban. Így a Yoda conditions-al elkerülhető néhány nem biztonságos
+            null viselkedés.
+        </para>
+            <mediaobject>
+                <imageobject>
+                    <imagedata fileref="yodajavacmd.jpg"/>
+                </imageobject>
+            </mediaobject>
+        <para> Amint látszik a console-on is NullPointerException hibával kilép. </para>
+        <para> Azonban a Yoda conditions bírálói nagyban panaszkodnak az olvashatóság elvesztésére,
+            ha ezt a módszert alkalmazzuk. </para>
+        
     </section>
-    
+
     <section>
         <title>Kódolás from scratch</title>
         <para>
