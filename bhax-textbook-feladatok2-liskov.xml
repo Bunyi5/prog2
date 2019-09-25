@@ -28,9 +28,59 @@
         <title>
             Anti OO
         </title>
+        <para> Össze kellett hasonlítani a BBP algoritmus kód futási idejét C, C++, Java és C#
+            nyelven. Egy virtuális linux gépen futattam a kódokat. Ilyen eredményt kaptam:</para>
         <para>
-            
+            <table>
+                <title>Összehasonlítás</title>
+                <tgroup cols="5">
+                    <colspec colname="c1"/>
+                    <colspec colname="c2"/>
+                    <colspec colname="c3"/>
+                    <colspec colname="c4"/>
+                    <colspec colname="c5"/>
+                    <thead>
+                        <row>
+                            <entry></entry>
+                            <entry>C</entry>
+                            <entry>C++</entry>
+                            <entry>Java</entry>
+                            <entry>C#</entry>
+                        </row>
+                    </thead>
+                    <tbody>
+                        <row>
+                            <entry>10^6</entry>
+                            <entry>3.051</entry>
+                            <entry>2.823</entry>
+                            <entry>2.575</entry>
+                            <entry>2.617</entry>
+                        </row>
+                        <row>
+                            <entry>10^7</entry>
+                            <entry>34.460</entry>
+                            <entry>33.332</entry>
+                            <entry>28.978</entry>
+                            <entry>30.589</entry>
+                        </row>
+                        <row>
+                            <entry>10^8</entry>
+                            <entry>385.376</entry>
+                            <entry>386.714</entry>
+                            <entry>338.139</entry>
+                            <entry>353.068</entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </table>
         </para>
+        <para> Ahogy látszik a C nyelv volt a leglassabb. Ez várható volt, hisz ez a legöregebb
+            nyelv a négy közül. Leggyorsabb volt a Java kód, amely a 10^8 pozíciónál 10 másodperccel
+            leelőzte a C# is. Több oka is van, hogy a Java legyőzött mindenkit. Elsőnek lehet
+            mondani, hogy a memória kiosztást sokkal jobban kezeli, mint a többi nyelv. Valamint a
+            JVM jobban optimalizálja a metódus hívásokat. Futás időben dinamikus elemzést tud
+            végezni, hogy mire van szükség és mire nem, így gyorsabb működést képes nyújtani, mint
+            egy C++ fordítóprogram. </para>
     </section>
     
     <section>
@@ -52,4 +102,3 @@
     </section>
     
 </chapter>
-

@@ -33,7 +33,7 @@
     <xi:include href="bhax-textbook-intro.xml">
         <xi:fallback>
             <para>
-                <emphasis>XInclude: bhax-textbook-glossary.xml file not found</emphasis>
+                <emphasis>XInclude: bhax-textbook-intro.xml file not found</emphasis>
             </para>
         </xi:fallback>
     </xi:include> 
@@ -42,7 +42,7 @@
     <xi:include href="bhax-textbook-feladatok2.xml">
         <xi:fallback>
             <para>
-                <emphasis>XInclude: bhax-textbook-motto.xml file not found</emphasis>
+                <emphasis>XInclude: bhax-textbook-feladatok2.xml file not found</emphasis>
             </para>
         </xi:fallback>
     </xi:include>                                                              
