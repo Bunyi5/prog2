@@ -153,7 +153,24 @@ int main() {
             Ciklomantikus komplexitás
         </title>
         <para>
-            
+            Ebben a feladatban ki kellett számolnunk valamelyik programunk függvényeinek
+            ciklomantikus komplexitását. Ezt én egy online program segítségével oldottam
+            meg, a Lizard-dal. A BBP java kódját elemzte a program. Íme:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="lizard1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="lizard2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Számítása a gráfelméleten alapul. A forráskód alapján határozza meg
+            az egyes függvények ciklomantikus komplexitását, ez a fenti eredményen is
+            jól látható.
         </para>
     </section>
     
