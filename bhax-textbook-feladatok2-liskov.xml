@@ -20,8 +20,64 @@
             Szülő-gyerek
         </title>
         <para>
-            
+                        
         </para>
+        <programlisting language="java">
+<![CDATA[class Szulo {
+    void szulometodus() {
+        System.out.println("Szulo vagyok!");
+    }
+}
+
+class Gyerek extends Szulo {
+    void gyerekmetodus() {
+        System.out.println("Gyerek vagyok!");
+    }
+}
+
+class Szulo_Gyerek {
+    public static void main(String[] args) {
+    Szulo valaki = new Gyerek();
+    
+    valaki.szulometodus();
+    //valaki.gyerekmetodus();
+    }
+}]]>
+        </programlisting>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="szulogyerekjavacmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <programlisting>
+<![CDATA[#include <iostream>
+
+class Szulo {
+public:
+    void szulometodus() {
+        std::cout << "Szulo vagyok!" << std::endl;
+    }
+};
+
+class Gyerek : public Szulo {
+public:
+    void gyerekmetodus() {
+        std::cout << "Gyerek vagyok!" << std::endl;
+    }
+};
+
+int main() {
+    Szulo* valaki = new Gyerek();
+
+    valaki->szulometodus();
+    //valaki->gyerekmetodus();
+}]]>
+        </programlisting>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="szulogyerekcppcmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
