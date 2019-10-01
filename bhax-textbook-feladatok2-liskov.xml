@@ -162,15 +162,25 @@ int main() {
                 <imagedata fileref="lizard1.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Egyszerűen csak ki kell választanunk a forráskód nyelvét, majd beillesztenünk magát
+            a kódot.
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="lizard2.jpg"></imagedata>
             </imageobject>
         </mediaobject>
         <para>
+            A végeredményen a számok minél kissebbek annál jobb, hiszen ha túl bonyolultak
+            a függvények nehezen olvasható a program.
+        </para>
+        <para>
             Számítása a gráfelméleten alapul. A forráskód alapján határozza meg
-            az egyes függvények ciklomantikus komplexitását, ez a fenti eredményen is
-            jól látható.
+            az egyes függvények ciklomantikus komplexitását. Ez a független utak számát
+            jelenti, hogy a program mennyire bonyolult vezérlési szempontból.
+            Két út akkor számít függetlennek, ha mindkettőben van olyan pont, amely
+            nem eleme a másiknak.
         </para>
     </section>
     
