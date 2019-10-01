@@ -19,9 +19,19 @@
         <title>
             Szülő-gyerek
         </title>
+        <para> Ennek a feladatnak a megoldásához tisztázni kell az öröklődés és a polimorfizmus
+            fogalmát. Az öröklődés az, amikor egy osztályt egy már létező osztály kiterjesztésével
+            definiálunk. Ekkor a már létező osztály lesz az ős- vagy szülőosztály. Az osztály amit
+            pedig kiterjesztettünk leszármazott vagy gyermekosztálynak nevezzük. A létrejött utód
+            egy új osztály lesz, amely örökli az ős metódusait, tagváltozóit. A public, protected,
+            private kulcsszavakkal lehet megadni, hogy a gyermek melyik metódusokat, változókat
+            lássa. A public-al rendelkezőket mindenki használhatja, a protected-et csak az ős
+            leszármazottai. A private tagot csak az az osztály, amelyben létrehozták a tagot. </para>
         <para>
-                        
+        A polimorfizmus lényege az, hogy mivel a gyermekosztály örökölt minden metódust és
+        tagváltozót így egy olyan környezetben ahol az őst lehet használni a gyermeket is.
         </para>
+        <para>Példa arra, hogy az ősön keresztül csak az ős üzenetei küldhetőek. Javaban:</para>
         <programlisting language="java">
 <![CDATA[class Szulo {
     void szulometodus() {
@@ -40,7 +50,7 @@ class Szulo_Gyerek {
     Szulo valaki = new Gyerek();
     
     valaki.szulometodus();
-    //valaki.gyerekmetodus();
+    valaki.gyerekmetodus(); //Nem látja a gyermekmetódusát!
     }
 }]]>
         </programlisting>
@@ -49,6 +59,13 @@ class Szulo_Gyerek {
                 <imagedata fileref="szulogyerekjavacmd.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Ahogy a console-on is látszik a program nem látja a gyermekmetódusát, azoban a
+            gyermek látja a szülő metódusát.
+        </para>
+        <para>
+            C++-ban:
+        </para>
         <programlisting>
 <![CDATA[#include <iostream>
 
@@ -70,7 +87,7 @@ int main() {
     Szulo* valaki = new Gyerek();
 
     valaki->szulometodus();
-    //valaki->gyerekmetodus();
+    valaki->gyerekmetodus(); //Nem látja a gyermekmetódusát!
 }]]>
         </programlisting>
         <mediaobject>
@@ -78,6 +95,10 @@ int main() {
                 <imagedata fileref="szulogyerekcppcmd.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Itt is ugyanúgy error kapunk, mivel hiába castoltuk a gyermeket szülővé az
+            nem éri el a gyermek metódusát.
+        </para>
     </section>
     
     <section>
