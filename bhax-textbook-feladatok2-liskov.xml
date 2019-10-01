@@ -11,7 +11,114 @@
             Liskov helyettesítés sértése
         </title>
         <para>
-            
+            Ebben a feladatban egy objektum orientált kódot kellett írnunk Java és C++
+            nyelven, amely megsérti a Liskov elvet. Először is mi az a Liskov elv?
+        </para>
+        <para>
+            A liskov elvet Barbara Liskov mutatta be először. Fő célja a rossz OO tervezés
+            megakadályozása. Az elv kimondja, hogy ha S altípusa T-nek, akkor bármely helyen
+            ahol T-t alkalmazzuk S-t is minden probléma nélkül használhatjuk úgy, hogy a
+            programrész tulajdonságai nem változnak.
+        </para>
+        <para>
+            Java kód:
+        </para>
+        <programlisting language="java">
+<![CDATA[static class Macska {
+    public void szőrös() {}
+}
+
+static class Program {
+    void fgv (Macska macska) {
+        macska.szőrös();
+    }
+}
+
+static class Perzsa extends Macska {}
+static class Szfinx extends Macska {}
+
+public static void main(String[] args) {
+    Program program = new Program();
+    Macska macska = new Macska();
+    program.fgv(macska);
+
+    Perzsa perzsa = new Perzsa();
+    program.fgv(perzsa);
+
+    Szfinx szfinx = new Szfinx();
+    program.fgv(szfinx);
+}]]>
+        </programlisting>
+        <para>
+            C++ kód:
+        </para>
+        <programlisting>
+<![CDATA[class Macska {
+public:
+	virtual void szőrös() {};
+};
+
+class Program {
+public:
+	void fgv(Macska& macska) {
+		macska.szőrös();
+	}
+};
+
+class Perzsa : public Macska {};
+class Szfinx : public Macska {};
+
+int main(int argc, char** argv) {
+	Program program;
+	Macska macska;
+	program.fgv(macska);
+
+	Perzsa perzsa;
+	program.fgv(perzsa);
+
+	Szfinx szfinx;
+	program.fgv(szfinx);
+}
+]]>
+        </programlisting>
+        <para>
+            A kódokban a Macska nevű ősosztály a T, ennek gyermekosztályai pedig a
+            Perzsa és a Szfinx ami itt az S. A Macska nevű osztály tartalmaz egy szőrös()
+            nevű függvényt, ez azt jelenti, hogy minden macska szőrös, de ez nem igaz.
+            A szfinx fajtájú macskák szőrtelenek. Azonban a program őt is szőrösnek titulálja.
+            A Liskov elv így sérül, mivel van olyan leszármazott, amely nem rendelkezik az őse
+            tulajdonságával, így behelyettesíteni sem lehet az ős helyére a leszármazottat.
+        </para>
+        <para>Úgy tudjuk kiküszöbölni ezt a hibát itt, hogy létrehozunk, még egy osztályt
+            SzőrösMacska néven amely a Macskából származik és ennek lesz leszármazottja a Perzsa. </para>
+        <programlisting language="java">
+<![CDATA[static class Macska {}
+
+static class Program {
+    void fgv (Macska macska) {}
+}
+
+static class SzőrösMacska extends Macska {
+    public void szőrös() {}
+}
+
+static class Perzsa extends SzőrösMacska {}
+static class Szfinx extends Macska {}
+
+public static void main(String[] args) {
+    Program program = new Program();
+    Macska macska = new Macska();
+    program.fgv(macska);
+
+    Perzsa perzsa = new Perzsa();
+    program.fgv(perzsa);
+
+    Szfinx szfinx = new Szfinx();
+    program.fgv(szfinx);
+}]]>
+        </programlisting>
+        <para>
+            A fent látható megoldással már nem sérül a Liskov elv.
         </para>
     </section>
     
@@ -158,15 +265,6 @@ int main() {
             JVM jobban optimalizálja a metódus hívásokat. Futás időben dinamikus elemzést tud
             végezni, hogy mire van szükség és mire nem, így gyorsabb működést képes nyújtani, mint
             egy C++ fordítóprogram. </para>
-    </section>
-    
-    <section>
-        <title>
-            Hello, Android!
-        </title>
-        <para>
-            
-        </para>
     </section>
     
     <section>
