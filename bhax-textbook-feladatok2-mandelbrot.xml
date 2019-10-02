@@ -32,6 +32,11 @@
         <para>
             
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="bpmn.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
