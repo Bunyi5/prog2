@@ -11,6 +11,11 @@
         <para>
             
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="reverse_engineering.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
