@@ -47,7 +47,23 @@
     <section>
         <title>BPEL Helló, Világ!</title>
         <para>
-            
+            <link xlink:href="https://youtu.be/eawsm8fb3iY">https://youtu.be/eawsm8fb3iY</link>
+        </para>
+        <para>
+            Létre kellett hoznunk egy webszervert, amelynek egy stringet megadva ugyanazt a
+            stringet dobja vissza. Egy 5 perces videóban meg is csináltam ezt. Azonban 
+            voltak előkészületek, mivel már egy depracated feladatról van szó. Először is 
+            hozzá kellett adnom az Eclipse-hez a BPEL pluginokat. Másodszor fel kellett
+            telepíteni az Apache Tomcatet hozzáadva az ode kiegészítőt. Ezután a videó
+            alapján megcsináltam a szervert, de szembesültem azzal, hogy nincs Web Servicies
+            Explorer-em. Elég nehezen találtam meg, hogy az axis2 plugin tartalmazza ezt a
+            funciót.
+        </para>
+        <para>
+            A BPEL nyelvről még mondanék egy pár szót. A BPEL a Business Process Execution
+            Language rövidítése. Ez az üzleti folyamatok leírására és webszerverrel kapcsolatos
+            műveletekhez használják. A folyamatok a BPEL-ben az információt csak a webszolgáltatási
+            felületek felhasználásával fogadják és továbbítják.
         </para>
     </section>
     
