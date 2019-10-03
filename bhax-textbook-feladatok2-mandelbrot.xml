@@ -23,6 +23,64 @@
         <para>
             
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="forward_engineering.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <programlisting language="java">
+<![CDATA[public abstract class Prism {
+
+	private double height;
+
+	public Prism() {
+		// TODO - implement Prism.Prism
+		throw new UnsupportedOperationException();
+	}
+
+	public void getHeight() {
+		// TODO - implement Prism.getHeight
+		throw new UnsupportedOperationException();
+	}
+
+	public void getArea() {
+		// TODO - implement Prism.getArea
+		throw new UnsupportedOperationException();
+	}
+
+	public void volume() {
+		// TODO - implement Prism.volume
+		throw new UnsupportedOperationException();
+	}
+
+	private void bigger() {
+		// TODO - implement Prism.bigger
+		throw new UnsupportedOperationException();
+	}
+}]]>
+        </programlisting>
+        <programlisting language="java">
+<![CDATA[public class Cuboid extends Prism {
+
+	private double a;
+	private double b;
+
+	public Cuboid() {
+		// TODO - implement Cuboid.Cuboid
+		throw new UnsupportedOperationException();
+	}
+
+	public void getArea() {
+		// TODO - implement Cuboid.getArea
+		throw new UnsupportedOperationException();
+	}
+
+	public void toString() {
+		// TODO - implement Cuboid.toString
+		throw new UnsupportedOperationException();
+	}
+}]]>
+        </programlisting>
     </section>
 
     <section>
