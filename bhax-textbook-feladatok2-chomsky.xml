@@ -11,6 +11,26 @@
         <para>
             
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="encodingerrorcmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="encodinggoodcmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="encodingnagy.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="encodingkicsi.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
