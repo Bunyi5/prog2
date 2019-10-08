@@ -39,7 +39,11 @@
     <section>
         <title>Forward engineering UML osztálydiagram</title>
         <para>
-            
+            Itt az előző feladat ellenkezőjét kellett végrehajtanunk, egy általunk létrehozott
+            UML diagramból kellett forrást generálnunk. Visual Paradigm-ban dolgoztam.
+            Létrehoztam 4 db osztályt: Prism, Cuboid, Cylinder és Space. A Prism osztályt
+            absztraktnak jelöltem ez látszik abból, hogy dőltbetűkkel van írva. A nyilak
+            pedig azt jelentik, hogy a Cuboid és Cylinder osztály a Prism leszármazottja.
         </para>
         <mediaobject>
             <imageobject>
@@ -99,12 +103,10 @@
 	}
 }]]>
         </programlisting>
-    </section>
-
-    <section>
-        <title>Egy esettan</title>
-        <para>
-            
+        <para> Ilyen kódokat generált a létrehozott diagramból. Ahogy látszik tényleg absztraktként
+            hozta létre a Prism osztályt. A változókat is mind legenerálta. A metódus törzsekbe
+            pedig írt, hogy implementálni kell a metódusokat. Ez a fajta kódgenerálás inkább
+            azoknak jó akik lusták megírni a kódot teljes egészében.
         </para>
     </section>
     
@@ -153,13 +155,6 @@
             Language rövidítése. Ez az üzleti folyamatok leírására és webszerverrel kapcsolatos
             műveletekhez használják. A folyamatok a BPEL-ben az információt csak a webszolgáltatási
             felületek felhasználásával fogadják és továbbítják.
-        </para>
-    </section>
-    
-    <section>
-        <title>TeX UML</title>
-        <para>
-            
         </para>
     </section>
 </chapter>
