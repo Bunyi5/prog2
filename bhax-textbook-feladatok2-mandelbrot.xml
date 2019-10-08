@@ -111,13 +111,26 @@
     <section>
         <title>BPMN</title>
         <para>
-            
+            A BPMN a Business Process Model and Notation rövidítése. Ez egy grafikus ábrázolás
+            hasonló az UML-hez, az üzleti folyamatok modelljének meghatározására szolgál.
+            A BPMN célja, hogy támogassa az üzleti folyamatok menedzselését, mind a műszaki
+            felhasználók, mind az üzleti felhasználók számára. Egy szabványos jelölést
+            biztosít, amely mindenkinek egyaránt könnyen érthető. Tehát egy közös nyelvként
+            szolgál, áthidalva az üzleti folyamatok tervezése és megvalósítása között gyakran
+            felmerülő kommunikációs rést.
         </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="bpmn.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Ez a példa egy hétköznapi folyamatot ír le, a taxi rendelés menetét. Az utas
+            felhívja a taxi társaságot, ahol az elosztó központtal információt cserélnek.
+            Az elosztó központ továbbítja a címet a legközelebbi sofőrnek. A sofőr felveszi
+            az utast elviszi a megadott helyre. Az utas kifizeti az útiköltséget és vége.
+            Persze ez elég egyszerű példa, sokkal komolyabbakat is lehet modellezni.
+        </para>
     </section>
     
     <section>
