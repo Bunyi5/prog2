@@ -8,14 +8,32 @@
 
     <section>
         <title>Reverse engineering UML osztálydiagram</title>
-        <para>
-            
-        </para>
+        <para> A feladatban az első védési program C++ kódjából kellett UML osztálydiagramot
+            generálnunk. Az UML egy grafikus modellező nyelv, amely diagramokat tartalmaz. A
+            diagramok dobozokat, szövegeket, ikonokat és vonalakat foglalja magába. Az UML
+            generálásához a Visual Paradigm alkalmazást használtam. Nekem ezt a diagramot alkotta: </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="reverse_engineering.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para> Az ábrán a kék dobozok az osztályok, tehát a Csomopont, az LZWBinFa és a GLOBAL.
+            Közvetlenül az osztályok neve alatt találhatóak a változók. Az elérhetőségüket egy -, +
+            vagy egy # jelöli. A - jelenti a private-ot, a + a publicot és a # a protectedet. A
+            változók után egy vízszintes vonallal elválasztva következnek az osztály metódusai. Az
+            elérhetőség itt is ugyanúgy van jelölve. A törzse mindegyiknek üresen van hagyva, hiszen
+            ez csak egy modell, nem kell kódot írni bele, sőt nem is lehet. </para>
+        <para> Az asszociáció társítást jelent. A legegyszerűbb fajtája az osztályok között rajzolt
+            egyszerű vonal. Azt jelenti valamilyen kapcsolat áll fent a két osztály között. A vonal
+            végén ha nyíl van az az asszociáció irányát, navigálhatóságát jelzi. Ha nincs nyíl akkor
+            a kapcsolat két irányú. Egy X-el jelöljük a nyilat, ha az asszociáció nem navigálható. </para>
+        <para> Az asszociáción belül megkülönböztetjük a tartalmazást, amelynek két fajtája van,
+            gyenge és erős. A gyenge tartalmazást nevezzük aggregációnak. Ezt akkor mondhatjuk
+            amikor a rész hozzátartozik valamihez, de létezik önállóan is. Jele az UML-ben az üres
+            rombusz. Az erős tartalmazást nevezzük kompozíciónak. Ekkor a tartalmazott nem létezhet
+            önmagában, csak részként valamiben. Ennek jele a telített rombusz. Ez látható is a
+            generált diagramon. Itt azt fejezi ki, hogy a Csomopont osztály az LZWBinFa osztály
+            része és nem létezhet nélküle. </para>
     </section>
     
     <section>
