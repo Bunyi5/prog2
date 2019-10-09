@@ -53,6 +53,14 @@
                 <emphasis>XInclude: bhax-textbook-feladatok2-chomsky.xml file not found</emphasis>
             </para>
         </xi:fallback>
+    </xi:include>
+    
+    <xi:include href="bhax-textbook-feladatok2-stroustrup.xml">
+        <xi:fallback>
+            <para>
+                <emphasis>XInclude: bhax-textbook-feladatok2-stroustrup.xml file not found</emphasis>
+            </para>
+        </xi:fallback>
     </xi:include> 
             
 </part>  
