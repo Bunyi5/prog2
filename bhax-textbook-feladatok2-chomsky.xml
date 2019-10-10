@@ -9,23 +9,42 @@
     <section>
         <title>Encoding</title>
         <para>
-            
+            A feladatban futtatni kellett a MandelbrotHalmazNagyító programot. Az volt benne
+            a kihívás, hogy a forráskódban ékezetes karakterek is szerepeltek és ha fordítottuk
+            akkor ezt a hibát kaptuk:
         </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="encodingerrorcmd.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Ahogy látszik a képen a kódolással lesz a hiba. Mivel az UTF-8-as kódolás számára
+            nem találhatóak azok a karakterek amelyeket itt ? jelöl, ezek a kódban az ékezetes
+            betűk.
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="encodinggoodcmd.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            A megoldás az encoding kapcsoló volt rá a megfelelő kódolással. Kódolásnak pedig
+            a Latin1 vagy Latin2 kellett megadni. Ezek a kódolások tartalmazzák az ékezetes betűket.
+            Itt a Latin2 kellett használni, mert az tartalmazza az "ő" és "ű" is. Ennek a kódja pedig
+            az ISO-8859-2 volt. Így már sikeresen fordult és futott is a program.
+        </para>
+        <para>
+            A program futás közben:
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="encodingnagy.jpg"></imagedata>
             </imageobject>
         </mediaobject>
+        <para>
+            Ahogyan felnagyítja a képet:
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="encodingkicsi.jpg"></imagedata>
