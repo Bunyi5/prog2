@@ -14,7 +14,7 @@
             generálásához a Visual Paradigm alkalmazást használtam. Nekem ezt a diagramot alkotta: </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="reverse_engineering.jpg"></imagedata>
+                <imagedata fileref="reverse_engineering.jpg" scale="85"></imagedata>
             </imageobject>
         </mediaobject>
         <para> Az ábrán a kék dobozok az osztályok, tehát a Csomopont, az LZWBinFa és a GLOBAL.

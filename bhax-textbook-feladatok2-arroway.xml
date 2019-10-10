@@ -145,7 +145,7 @@ public static void main(String[] args) {
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="polarjavacmd.jpg"/>
+                    <imagedata fileref="polarjavacmd.jpg" scale="90"/>
                 </imageobject>
         </mediaobject>
         <para>
@@ -342,7 +342,7 @@ int main(int argc, char** argv) {
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="polarcppcmd.jpg"/>
+                    <imagedata fileref="polarcppcmd.jpg" scale="60"/>
                 </imageobject>
         </mediaobject>
     </section>
