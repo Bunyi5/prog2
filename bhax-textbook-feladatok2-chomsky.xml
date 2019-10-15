@@ -440,22 +440,53 @@ panel.add(passText);]]>
     
     <section>
         <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
-        <para>
-            
+        <para> A program első fordítása nem volt túl sikeres. Sok könyvtárat kellett leszednem
+            ahhoz, hogy működjön: sudo apt-get install libglu1-mesa-dev freeglut3-dev
+            mesa-common-dev. Ez a parancs telepítette nekem a glut könyvtárat ami hiányzott a
+            fordításhoz. A fordításhoz a következő parancsot kellett használni: g++ para6.cpp -o
+            para -lboost_system -lGL -lGLU -lglut -std=c++11. A futtatáshoz pedig ezt:
+            <literallayout>
+./para 3:2:1:1:0:3:2:1:0:2:0:2:1:1:0:3:3:0:2:0:1:1:0:1:0:1:0:1:
+0:2:2:0:1:1:1:3:2:1:0:2:0:2:1:1:1:2:3:0:1:1:1:1:0:3:3:0:1:0:2:1
+:0:1:0:2:2:0:0:0:1:3:1:0:1:3:2:1:0:2:0:3:3:0:1:0:2:1:0.
+            </literallayout>
         </para>
-    </section>
-    
-    <section>
-        <title>Paszigráfia Rapszódia LuaLaTeX vizualizáció</title>
         <para>
-            
+            A program elindításakor rögtön feltűnt, hogy a kocka a nyilakkal ellentétes
+            irányba mozdul. Egy kis keresgélés után rá lehetett jönni, hogy ebben a metódusban
+            kell változtatni, hogy jól működjön. Csak annyit kellett, hogy ahol hozzáadok
+            ott kivonok az értékből, ahol pedig kivonok ott hozzáadok az értékhez. Így
+            az ellenkező irányba fog mozdulni minden.
         </para>
-    </section>
-    
-    <section>
-        <title>Perceptron osztály</title>
+        <programlisting language="java">
+<![CDATA[void skeyboard ( int key, int x, int y )
+{
+    if ( key == GLUT_KEY_UP ) {
+            cubeLetters[index].rotx -= 5.0;
+    } else if ( key == GLUT_KEY_DOWN ) {
+            cubeLetters[index].rotx += 5.0;
+    } else if ( key == GLUT_KEY_RIGHT ) {
+            cubeLetters[index].roty += 5.0;
+    } else if ( key == GLUT_KEY_LEFT ) {
+            cubeLetters[index].roty -= 5.0;
+    } else if ( key == GLUT_KEY_PAGE_UP ) {
+            cubeLetters[index].rotz -= 5.0;
+    } else if ( key == GLUT_KEY_PAGE_DOWN ) {
+            cubeLetters[index].rotz += 5.0;
+    }
+
+    glutPostRedisplay();
+}]]>
+        </programlisting>
         <para>
-            
+            A színezésssel játszadoztam még el. Ahhoz, hogy megváltoztassam a színét a
+            glColor3f ( R, G, B) metóduson kellett módosítanom a programban. Ez lett
+            a végeredmény:
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="paszigrafia.jpg" scale="85"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
 </chapter>
