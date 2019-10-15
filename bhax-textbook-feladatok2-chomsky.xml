@@ -170,7 +170,8 @@ public class Leet {
         
         System.out.print("Kérem a fálj nevét: ");
         String fileName = scanner.nextLine();
-        String fullFileContents = readFile(fileName,StandardCharsets.UTF_8);  
+        String fullFileContents =
+                readFile(fileName,StandardCharsets.UTF_8);  
         System.out.println("File beolvasva.");
         fullFileContents = fullFileContents.toLowerCase();
         fullFileContents = translator(fullFileContents);
@@ -179,7 +180,8 @@ public class Leet {
         PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
         writer.print(fullFileContents);
         writer.close();
-        System.out.println("A fordított szöveg az output.txt-ben megtalálható.");
+        System.out.println("A fordított szöveg az
+                            output.txt-ben megtalálható.");
         
         scanner.close();
     }
@@ -217,7 +219,8 @@ public static void main(String[] args) throws IOException {
     
     System.out.print("Kérem a fálj nevét: ");
     String fileName = scanner.nextLine();
-    String fullFileContents = readFile(fileName,StandardCharsets.UTF_8);  
+    String fullFileContents =
+            readFile(fileName,StandardCharsets.UTF_8);  
     System.out.println("File beolvasva.");
     fullFileContents = fullFileContents.toLowerCase();
     fullFileContents = translator(fullFileContents);
@@ -226,7 +229,8 @@ public static void main(String[] args) throws IOException {
     PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
     writer.print(fullFileContents);
     writer.close();
-    System.out.println("A fordított szöveg az output.txt-ben megtalálható.");
+    System.out.println("A fordított szöveg az
+                        output.txt-ben megtalálható.");
     
     scanner.close();
 }
@@ -302,7 +306,8 @@ public class Login {
         //Set panel
         int width = 700;
         int height = 400;
-        panel.setBounds((dim.width-width)/2, (dim.height-height)/2, width, height);
+        panel.setBounds((dim.width-width)/2,
+                            (dim.height-height)/2, width, height);
         panel.setLayout(null);
         
         //Add buttons,labels,text fields to panel
@@ -315,7 +320,8 @@ public class Login {
         
         //Create, set frame
         JFrame frame = new JFrame();
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH); //set width, height full
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        //set width, height full
         frame.setUndecorated(true); // disable decorations on frame
         frame.getContentPane().setBackground(new Color(87, 147, 77));
         frame.setVisible(true); //show window
@@ -395,8 +401,7 @@ panel.setLayout(null);]]>
             fieldeket.
         </para>
         <programlisting language="java">
-<![CDATA[
-//Add buttons,labels,text fields to panel
+<![CDATA[//Add buttons,labels,text fields to panel
 panel.add(login);
 panel.add(exit);
 panel.add(username);
@@ -408,18 +413,16 @@ panel.add(passText);]]>
             A panelhez hozzáadom a gombokat, címkéket, text fieldeket.
         </para>
         <programlisting language="java">
-<![CDATA[
-        //Create, set frame
-        JFrame frame = new JFrame();
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH); //set width, height full
-        frame.setUndecorated(true); // disable decorations on frame
-        frame.getContentPane().setBackground(new Color(87, 147, 77));
-        frame.setVisible(true); //show window
-        frame.setLayout(null);
-        
-        //Add panel to frame
-        frame.add(panel);
-]]>
+<![CDATA[//Create, set frame
+JFrame frame = new JFrame();
+frame.setExtendedState(Frame.MAXIMIZED_BOTH); //set width, height full
+frame.setUndecorated(true); // disable decorations on frame
+frame.getContentPane().setBackground(new Color(87, 147, 77));
+frame.setVisible(true); //show window
+frame.setLayout(null);
+
+//Add panel to frame
+frame.add(panel);]]>
         </programlisting>
         <para>
             A lényegi rész pedig itt következik. Létrehozom a framet vagyis az ablakot.
