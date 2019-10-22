@@ -108,9 +108,12 @@ cout << "Összes fájl:" << i << endl;]]>
     </section>
     
     <section>
-        <title>Másoló-mozgató szemantika</title>
+        <title>Másoló-mozgató szemantika és Összefoglaló</title>
         <para>
-            
+            Kódcsipeteken keresztül kellett összevetni a C++11 másoló és mozgató
+            szemantikáját, valamint a mozgató konstruktort a mozgató értékadásra kellett
+            alapozni. Íme a teljes kód ami bemutatja mind a másoló konstruktort, másoló
+            értékadást, mozgató konstruktort és mozgató értékadást:
         </para>
         <programlisting language="c++">
 <![CDATA[#include <iostream>
@@ -120,60 +123,60 @@ using namespace std;
 
 class program{
 private:
-	int a;
-	int* b;
-	
+    int a;
+    int* b;
+    
 public:
-	program(int elem1, int& elem2) : a(elem1), b(new int){      //konstruktor 2 paraméterrel
-		cout << "\tLefutott a default konstruktor!" << endl;
-		*b = elem2;
-	}
+    program(int elem1, int& elem2) : a(elem1), b(new int){      //konstruktor 2 paraméterrel
+        cout << "\tLefutott a default konstruktor!" << endl;
+        *b = elem2;
+    }
 
-	program(const program &adott){      //másoló konstruktor
-		cout << "\tLefutott a másoló konstruktor!" << endl;
-		a = adott.a;
-		b = new int;
-		*b = *adott.b;
-	}
+    program(const program &adott){      //másoló konstruktor
+        cout << "\tLefutott a másoló konstruktor!" << endl;
+        a = adott.a;
+        b = new int;
+        *b = *adott.b;
+    }
 
-	program& operator= (program &adott){        //másoló értékadás
-		cout << "\tMásoló értékadás történt!" << endl;
-		a = adott.a;
-		*b = *adott.b;
-		return *this;
-	}
+    program& operator= (program &adott){        //másoló értékadás
+        cout << "\tMásoló értékadás történt!" << endl;
+        a = adott.a;
+        *b = *adott.b;
+        return *this;
+    }
 
-	program(program && adott){      //mozgató konstruktor
-		cout << "\tLefutott a mozgató konstruktor!" << endl;
-		a = 0;
-		b = nullptr;
-		*this = move(adott);
-		
-	}
+    program(program && adott){      //mozgató konstruktor
+        cout << "\tLefutott a mozgató konstruktor!" << endl;
+        a = 0;
+        b = nullptr;
+        *this = move(adott);
+        
+    }
 
-	program& operator= (program && adott){      //mozgató értékadás
-		cout << "\tMozgató értékadás történt!" << endl;
-		swap(b,adott.b);
-		swap(a,adott.a);
-		
-		return *this;
-	}
+    program& operator= (program && adott){      //mozgató értékadás
+        cout << "\tMozgató értékadás történt!" << endl;
+        swap(b,adott.b);
+        swap(a,adott.a);
+        
+        return *this;
+    }
 
-	void Print(){
-		if(b!=NULL)                                      
-			cout << "Az a értéke: " << a << ", A b értéke " << *b << ", és b " << b << "-re mutat\n" << endl;
-		else
-			cout << "Az a értéke: " << a << ", A b értéke " << b << "\n" << endl;
-	}
+    void Print(){
+        if(b!=NULL)                                      
+            cout << "Az a értéke: " << a << ", A b értéke " << *b << ", és b " << b << "-re mutat\n" << endl;
+        else
+            cout << "Az a értéke: " << a << ", A b értéke " << b << "\n" << endl;
+    }
 
-	~program(){     //destruktor
-		cout << "\tLefutott a destruktor!" << endl;
-		delete b;
-	}
+    ~program(){     //destruktor
+        cout << "\tLefutott a destruktor!" << endl;
+        delete b;
+    }
 };
 
 int main(){
-	
+    
     int Nyolc = 8;
     int Kilenc = 9;
 
@@ -216,17 +219,216 @@ int main(){
     return 0;
 }]]>
         </programlisting>
+        <para>
+            De nézzük elemezve a kódot.
+        </para>
+        <programlisting language="c++">
+<![CDATA[private:
+    int a;
+    int* b;]]>
+        </programlisting>
+        <para>
+            A program class private részében először is van két változó.
+            Egy alap int típusú ez lesz az "a".
+            A másik egy pointer amit * jelölünk ez a "b".
+        </para>
+        <programlisting language="c++">
+<![CDATA[program(int elem1, int& elem2) : a(elem1), b(new int){
+    cout << "\tLefutott a default konstruktor!" << endl;
+    *b = elem2;
+}]]>
+        </programlisting>
+        <para>
+            A legelső egy default két paraméteres konstruktor. Itt csak annyi történik, hogy
+            amikor ez meghívódik akkor az "a"-t egyenlővé teszi az első elemmel, a "b"
+            viszont mivel pointer jelölni kell egy *-al, így mentjük el az értékébe az
+            elem2-t. A kiíratás egy nyomkövető üzenet.
+        </para>
+        <programlisting language="c++">
+<![CDATA[program(const program &adott){
+    cout << "\tLefutott a másoló konstruktor!" << endl;
+    a = adott.a;
+    b = new int;
+    *b = *adott.b;
+}]]>
+        </programlisting>
+        <para>
+            Ezután a sorban a másoló konstruktor következik. Ezt akkor használjuk amikor
+            úgy inicializálunk egy osztályt, hogy egy már kész ugyanolyan típusú osztály
+            példány értékeit másoljuk át. Ez a konstruktor annyira fontos a C++-ban, hogy ha
+            nem hozunk létre ilyet, automatikusan létre fog jönni egy. Azonban ezek a fordító
+            által létrehozott konstruktorok csak sekély másolatot készítenek. Ez azt jelenti,
+            hogy csak az eredeti objektumra való hivatkozást másolja és nem annak az értékét.
+        </para>
+        <para>
+            Ezért ha pointerekkel és referenciákkal dolgozunk csak maga a pointer másolódik,
+            ekkor kell létrehoznunk egy saját mélymásoló konstruktort. A mélymásoló
+            külön memóriát foglal le a másolt információk számára. Vagyis a forrás és a
+            másolat különböznek. Ha a mélymásolásnál megváltoztatjuk a másolat
+            értékét akkor a forrás nem változik, nem úgy mint a sekély másolásnál. Tehát
+            az egyik memóriahelyen végrehajtott módosítások nem befolyásolják a másikat.
+            Ha pedig dinamikus memóriát pointerek segítségével allokálunk, akkor kell a
+            felhasználó által definiált másoló konstruktor, hogy mind a két objektum különböző
+            memóriahelyekre mutasson.
+        </para>
+        <para>
+            Egy ilyen konstruktor látható fent is. A paraméterében egy objektumra vonatkozó
+            referenciát kell tartalmaznia másképpen végtelen ciklus jön létre. A törzsben
+            jelenleg egy nyomkövető üzenet van, egy sima int típusú érték átmásolás, valamint
+            a b pointerbe másoljuk a másolandó példány b értékét.
+        </para>
+        <programlisting language="c++">
+<![CDATA[program& operator= (program &adott){
+    cout << "\tMásoló értékadás történt!" << endl;
+    a = adott.a;
+    *b = *adott.b;
+    return *this;
+}]]>
+        </programlisting>
+        <para>
+            A másoló értékadást akkor használjuk amikor egy osztály értékeit egy másik már
+            létező osztály értékeibe szeretnénk másolni. Meghívása:
+            <function>osztaly1 = osztaly2</function>
+            Ez is ugyanúgy mint a másoló konstruktornál automatikusan létrejön a fordításkor,
+            de ugyanaz lesz a helyzet itt is csak sekély másolás történik, így ahhoz, hogy
+            pointerekkel és referenciákkal tudjunk dolgozni itt is létre kell hozni egy
+            saját másoló értékadást.
+        </para>
+        <para>
+            Ebben az esetben mint a másoló konstruktornál van egy sima int érték átmásolás és
+            a b pointerbe másoljuk a másolandó példány értékét.
+        </para>
+        <programlisting language="c++">
+<![CDATA[program(program && adott){
+    cout << "\tLefutott a mozgató konstruktor!" << endl;
+    a = 0;
+    b = nullptr;
+    *this = move(adott);
+    
+}
+
+program& operator= (program && adott){
+    cout << "\tMozgató értékadás történt!" << endl;
+    swap(b,adott.b);
+    swap(a,adott.a);
+    
+    return *this;
+}]]>
+        </programlisting>
+        <para>
+            Míg a másoló konstruktor és másoló értékadás célja, hogy másolatot készítsen
+            egyik objektumról a másikra, addig a mozgató konstruktor és értékadásé, hogy
+            átruházza az értékeket egyikről a másik objektumra. Ez a művelet sokkal kevesebb
+            erőforrást igényel, mint a másolás, mivel itt nem kell lemásolni az értékeket
+            csak átadni neki. Eközben az eredeti elveszti a tartalmát és használhatatlanná
+            válik.
+        </para>
+        <para> A mozgató konstruktor és értékadás definiálása analóg történik. A másoló szemantika
+            esetén a paraméter egy konstans bal érték referencia, amíg a mozgató szemantikánál egy
+            nem konstans jobb érték referenciáról beszélünk. Ezt láthatjuk is a programban mivel a
+            referencia &amp; jellel van jelölve a paraméterben.
+        </para>
+        <para> A mozgató értékadás csak annyit tesz, hogy felcseréli a két példány tagjait a már
+            beépített swap metódussal. A mozgató konstruktort pedig a mozgató értékadásra kellett
+            alapozni. Ez úgy történik, hogy amikor meghívódik a konstruktor akkor amelyikbe mozgatni
+            fogjuk az értékeket annak először kinullázzuk az értékeit, majd a <function>*this =
+                move(adott);</function> sorral meghívjuk a másoló értékadás függvényt, ez felcseréli
+            a példányok értékeit, így a forrás kapja a nullákat és a másik a forrás értékeit.
+        </para>
+        <programlisting language="c++">
+<![CDATA[void Print(){
+    if(b!=NULL)                                      
+        cout << "Az a értéke: " << a << ", A b értéke " << *b << ", és b " << b << "-re mutat\n" << endl;
+    else
+        cout << "Az a értéke: " << a << ", A b értéke " << b << "\n" << endl;
+}
+
+~program(){
+    cout << "\tLefutott a destruktor!" << endl;
+    delete b;
+}]]>
+        </programlisting>
+        <para> A program osztályban ezután csak egy print metódus van, hogy szebben láthassuk mi is
+            történik. Az "a" értékét írjuk ki, majd a "b" értékét, majd a memóriacímet ahová
+            a "b" mutat. Valamint kell még egy destruktor, ami törli a pointereket a program végén,
+            ezzel memóriát szabadítva fel.
+        </para>
+        <programlisting language="c++">
+<![CDATA[int Nyolc = 8;
+int Kilenc = 9;
+
+cout << "Alap létrehozása 10, Nyolc értékekkel:" << endl;
+program Alap(10, Nyolc);
+cout << "Alap ertekei:" << endl;
+Alap.Print();]]>
+        </programlisting>
+        <para>
+            A main metódusban először létrehozzuk az Alap példányt amit másolni fogunk és
+            kiíratjuk az értékeit.
+        </para>
+        <programlisting language="c++">
+<![CDATA[cout << "\n\n----------Másoló konstruktor----------" << endl;
+cout << "Alap_masolat létrehozása Alap alapjan:" << endl;
+program Alap_masolat(Alap);
+cout << "Alap ertekei:" << endl;
+Alap.Print();
+cout << "Alap_masolat értékei" << endl;
+Alap_masolat.Print();]]>
+        </programlisting>
+        <para>
+            Ezután lemásoljuk az Alap példányt az Alap_masolatba és kiíratjuk az értékeiket.
+        </para>
+        <programlisting language="c++">
+<![CDATA[cout << "\n\nUj1 létrehozása 20, Kilenc értékekkel:" << endl;
+program Uj1(20, Kilenc);
+cout << "Uj1 ertekei:" << endl;
+Uj1.Print();
+
+cout << "\n\n----------Másoló értékadás----------" << endl;
+cout << "Alap_masolat = Uj1:" << endl;
+Alap_masolat = Uj1;
+cout << "Uj1 ertekei:" << endl;
+Uj1.Print();
+cout << "Alap_masolat ertekei:" << endl;
+Alap_masolat.Print();]]>
+        </programlisting>
+        <para>
+            Létrehozunk egy Uj1 nevű példányt, amibe másoló értékadással átmásoljuk az
+            Alap_masolat értékeit.
+        </para>
+        <programlisting language="c++">
+<![CDATA[cout << "\n\n----------Mozgató konstruktor és értékadás----------" << endl;
+cout << "Uj2 létrehozása mozgató konstruktorral:" << endl;
+program Uj2(move(Alap));
+cout << "Alap ertekei:" << endl;
+Alap.Print();
+cout << "Uj2 ertekei:" << endl;
+Uj2.Print();]]>
+        </programlisting>
+        <para>
+            Már csak a mozgató konstruktor és értékadás maradt. Ezzel a sorral:
+            <function>program Uj2(move(Alap));</function> híjuk meg a konstruktort.
+            Mivel a beépített move függvény az Alapból jobb érték referenciát hoz létre,
+            így tudjuk meghívni.
+        </para>
+        <para>
+            A program futás után:
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="Constructor1.jpg"></imagedata>
             </imageobject>
         </mediaobject>
-    </section>
-    
-    <section>
-        <title>Hibásan implementált RSA törése</title>
         <para>
-            
+            Ahogyan látszik a másoló konstruktornál az értékek ugyanazok a másolat példányánál,
+            de a memória cím más. A másoló értékadásnál ugyanez látható. A mozgató konstruktornál
+            és értékadásnál pedig az látszik, hogy a forrást nullára állítottuk és az Uj2
+            kapta meg az értékeket.
+        </para>
+        <para>
+            Ahogy látszik, ha jól megtanuljuk az alapokat nem okozhat nehézséget ezeknek
+            a konstruktoroknak és értékadásoknak a használata, sőt megkönnyíthetik az egyes
+            programok működését ha megfelelően használjuk őket.
         </para>
     </section>
     
@@ -396,4 +598,3 @@ int main (int argc, char **argv){
         </mediaobject>
     </section>
 </chapter>
-
