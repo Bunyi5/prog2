@@ -9,7 +9,41 @@
     <section>
         <title>Gengszterek</title>
         <para>
-            
+            A C++11 vezette be a lambda kifejezést, ez teszi lehetővé számunkra, hogy inline
+            függvényeket írjunk. Ezek rövid kódrészeletek, amelyeket nem használunk újra és
+            nem érdemes megnevezni. Így kell definiálni:
+        </para>
+        <programlisting language="c++">
+<![CDATA[[capture clause] (parameters) -> return-type
+{
+    definition of method
+}]]>
+        </programlisting>
+        <para>
+            A lambda kifejezés visszatérítési típusát általában maga a fordító értékeli, így
+            figyelmen kívül hagyhatjuk a -> return-type részt, kivéve néhány komplex esetben.
+        </para>
+        <para>
+            Az OOCWC-ben a 75. sorban lévő kódrészletben van a lényeg:
+        </para>
+        <programlisting language="c++">
+<![CDATA[std::sort ( gangsters.begin(), gangsters.end(), [this, cop] ( Gangster x, Gangster y )
+{
+    return dst ( cop, x.to ) < dst ( cop, y.to );
+} );]]>
+        </programlisting>
+        <para>
+            Rendezésre az std::sort függvényt fogjuk használni, ami a benne szereplő lambda
+            kifejezést fogja használni összehasonlításra. A sort metódus definiálása:
+        </para>
+        <programlisting language="c++">
+<![CDATA[void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);]]>
+        </programlisting>
+        <para>
+            Ezzel a metódussal a gangsters vectort fogjuk rendezni. Paraméterként két Gangster
+            objektumot vár. Ha az x gangster közelebb van az elkapott cop objektumhoz, mint az y
+            gangster akkor igaz értéket térít vissza. Vagyis a rendezés után a vector elején a
+            cophoz legközelebb álló gangsterek lesznek.
         </para>
     </section>
     
