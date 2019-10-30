@@ -23,8 +23,114 @@
     <section>
         <title>STL map érték szerinti rendezése</title>
         <para>
-            
+            A feladat az volt, hogy egy mapet ne a kulcs szerint rendezzünk, hanem az érték
+            szerint. Íme a kód:
         </para>
+        <programlisting language="c++">
+<![CDATA[#include <iostream> 
+#include <map>
+#include <set>
+#include <functional>
+
+using namespace std;
+
+int main() { 
+
+    map<string, int> Map;
+
+    Map.insert(pair<string, int>("a", 55));
+    Map.insert(pair<string, int>("b", 21));
+    Map.insert(pair<string, int>("c", 98));
+    Map.insert(pair<string, int>("d", 62));
+    Map.insert(pair<string, int>("e", 120));
+    Map.insert(pair<string, int>("f", 34));
+    Map.insert(pair<string, int>("g", 42));
+    Map.insert(pair<string, int>("h", 29));
+    Map.insert(pair<string, int>("i", 27));
+    Map.insert(pair<string, int>("j", 87));
+
+    typedef function<bool(pair<string, int>, pair<string, int>)> Hasonlito;
+
+    Hasonlito hasonlit =
+        [](pair<string, int> elso ,std::pair<string, int> masodik)
+        {
+            return elso.second < masodik.second;
+        };
+            
+    set<pair<string, int>, Hasonlito> sortedMap(Map.begin(), Map.end(), hasonlit);
+
+    for (pair<string, int> elem : Map)
+        cout << elem.first << " :: " << elem.second << endl;
+
+    cout << "-----" << endl;
+
+    for (pair<string, int> elem : sortedMap)
+        cout << elem.first << " :: " << elem.second << endl;
+}]]>
+        </programlisting>
+        <para>
+            Nézzük a kódot részekre bontva.
+        </para>
+        <programlisting language="c++">
+<![CDATA[map<string, int> Map;
+
+Map.insert(pair<string, int>("a", 55));
+Map.insert(pair<string, int>("b", 21));
+Map.insert(pair<string, int>("c", 98));
+Map.insert(pair<string, int>("d", 62));
+Map.insert(pair<string, int>("e", 120));
+Map.insert(pair<string, int>("f", 34));
+Map.insert(pair<string, int>("g", 42));
+Map.insert(pair<string, int>("h", 29));
+Map.insert(pair<string, int>("i", 27));
+Map.insert(pair<string, int>("j", 87));]]>
+        </programlisting>
+        <para>
+            Először is létrehozunk egy mapet, ahol a kulcs string típusú, az érték
+            pedig int típusú lesz. A mapet feltöltjük értékekkel a map osztály
+            beépített insert függvényével.
+        </para>
+        <programlisting language="c++">
+<![CDATA[typedef function<bool(pair<string, int>, pair<string, int>)> Hasonlito;
+
+Hasonlito hasonlit =
+    [](pair<string, int> elso ,std::pair<string, int> masodik)
+    {
+        return elso.second < masodik.second;
+    };]]>
+        </programlisting>
+        <para>
+            Ezután létrehozok egy Hasonlito osztályt ami két párt kér el és egy bool típust
+            ad vissza. Ennek az osztálynak létrehozok egy hasonlit metódust amely attól
+            függően, hogy a két pár érték eleméből melyik a nagyobb igazat vagy hamisat ad
+            vissza.
+        </para>
+        <programlisting language="c++">
+<![CDATA[set<pair<string, int>, Hasonlito> sortedMap(Map.begin(), Map.end(), hasonlit);]]>
+        </programlisting>
+        <para>
+            A seten belül történik a rendezés. A setnek meg kell adnom, hogy melyik osztályt
+            használja a rendezéshez. Majd megadom a Map kezdő és végértékét és a metódust
+            amelyet használnia kell a rendezéshez.
+        </para>
+        <programlisting language="c++">
+<![CDATA[for (pair<string, int> elem : Map)
+    cout << elem.first << " :: " << elem.second << endl;
+
+cout << "-----" << endl;
+
+for (pair<string, int> elem : sortedMap)
+    cout << elem.first << " :: " << elem.second << endl;]]>
+        </programlisting>
+        <para>
+            Már csak a kiíratás marad amit egy for each ciklussal teszek meg. Elsőnek az
+            eredeti Map-et íratom ki majd a már rendezettet. Ezt kaptam:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="sortmapcmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
