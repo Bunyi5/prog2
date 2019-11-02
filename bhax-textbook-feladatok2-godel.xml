@@ -170,7 +170,49 @@ for (pair<string, int> elem : sortedMap)
     <section>
         <title>Alternatív Tabella rendezése</title>
         <para>
-            
+            Ebben a feladatban a Comparable interface szerepére kellett rávilágítani.
+            A Comparable interfacet használjuk a felhasználó által létrehozott osztályok
+            rendezésére. Az interface a java.lang csomagban található és csak egyetlen
+            metódust tartalmaz: <function>compareTo(Objektum)</function>.
+            Így van a Csapat osztályban implementálva:
+        </para>
+        <programlisting language="java">
+<![CDATA[class Csapat implements Comparable<Csapat> {
+
+    protected String nev;
+    protected double ertek;
+
+    public Csapat(String nev, double ertek) {
+        this.nev = nev;
+        this.ertek = ertek;
+    }
+
+    public int compareTo(Csapat csapat) {
+        if (this.ertek < csapat.ertek) {
+            return -1;
+        } else if (this.ertek > csapat.ertek) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+}]]>
+        </programlisting>
+        <para>
+            Ezt az interfacet is mint ahogy a többit az implements kulcsszóval lehet
+            implementálni. Valamint az interface kacsacsőrei között meg kell adni egy T
+            típusú objektumot. A compareTo metódusnak egy Csapat objektumot kell megadni.
+            Ha az objektum amihez hasonlítunk kisebb, mint az amit a zárójelen belül adunk
+            meg akkor -1-el, ha nagyobb akkor 1-el, ha egyenlő akkor 0-val tér vissza.
+        </para>
+        <programlisting language="java">
+<![CDATA[java.util.List<Csapat> rendezettCsapatok = java.util.Arrays.asList(csapatok);
+java.util.Collections.sort(rendezettCsapatok);]]>
+        </programlisting>
+        <para>
+            Azért kellett itt a Comparable interfacet implementálni mivel a sort azaz
+            a rendezés csak olyan listákon működik amelynek minden eleme implemetálja ezt.
+            Így probléma nélkül megtudjuk rá hívni a Collections.sort metódusát.
         </para>
     </section>
     
