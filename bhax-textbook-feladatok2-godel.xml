@@ -48,13 +48,6 @@
     </section>
     
     <section>
-        <title>C++11 Custom Allocator</title>
-        <para>
-            
-        </para>
-    </section>
-    
-    <section>
         <title>STL map érték szerinti rendezése</title>
         <para>
             A feladat az volt, hogy egy mapet ne a kulcs szerint rendezzünk, hanem az érték
@@ -217,17 +210,44 @@ java.util.Collections.sort(rendezettCsapatok);]]>
     </section>
     
     <section>
-        <title>Prolog családfa</title>
-        <para>
-            
-        </para>
-    </section>
-    
-    <section>
         <title>GIMP Scheme hack</title>
         <para>
-            
+            Ebben a eladatban a Bátfai Norbert tanárúr által kiadott Gimp-es példát kellett
+            feldolgozni.
         </para>
+        <programlisting>
+<![CDATA[(define (elem x lista)
+
+    (if (= x 1) (car lista) (elem (- x 1) ( cdr lista ) ) )
+
+)]]>
+        </programlisting>
+        <para>
+            Amint belekukkantunk a forráskódba rögtön láthatjuk, hogy nem a megszokott
+            programozással találkozunk. Nem infix alakban definiáljuk a műveleteket, hanem
+            prefixben. Ennél a résznél például a define kulcsszóval létrehozunk egy metódust,
+            amelynek 2 paramétere lesz.
+        </para>
+        <para>
+            Ahhoz, hogy a gimpben működjön ez a kód a gimp/227/.config/GIMP/2.10/scripts
+            helyre kellet bemásolni. Ezután ha elindítjuk a Gimpet a létrehozásnál
+            megjelenik a BHAX -> Mandala9. Ez az ablak ugrik fel ha rákattintunk:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="gimp2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Itt beállíthatjuk a szöveget amit elfog forgatni, a középső szöveget,
+            a betűtípust, a betűnagyságot, a mandala szélességét, hosszúságát, valamint
+            a színezhetünk is.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="gimp.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
 </chapter>
 
