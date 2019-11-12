@@ -222,8 +222,191 @@ while ( videoCapture.isOpened() )
     <section>
         <title>BrainB</title>
         <para>
-            
+            Azt a feladatot kaptuk, hogy a BrainB-ben mutassuk be a Qt slot-signal
+            mechanizmusát. 
         </para>
+        <para>
+            Ezt a mechanizmust objektumok közötti kommunikálásra lehet használni.
+            Egy signalt, vagyis egy jelet ad ki a program, ha egy bizonyos esemény bekövetkezik.
+            A slot pefig egy olyan függvény amelyet a signal bekövetkezése esetén meg
+            kell hívni. A connect függvénnyel lehet összekapcsolni egy signal és egy slotot.
+            A két mechanizmus típus biztos ami annyit tesz, hogy a szignatúrájuknak egyezzniük
+            kell. Valamint tetszőleges számú argumentumot felhevetnek bármilyen típúsból.
+        </para>
+        <para>
+            Így néz ki ez a BrainB-ben:
+        </para>
+        <programlisting language="c++">
+<![CDATA[connect ( brainBThread, SIGNAL ( heroesChanged ( QImage, int, int ) ),
+          this, SLOT ( updateHeroes ( QImage, int, int ) ) );
+
+connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
+          this, SLOT ( endAndStats ( int ) ) );]]>
+        </programlisting>
+        <para>
+            Itt az történik, hogy ha a herosChanged signal befut akkor az az updateHeros
+            függvényt elindítja, ugyanez az endAndStat-nál.
+        </para>
+        <programlisting language="c++">
+<![CDATA[void draw () {
+
+    cv::Mat src ( h+3*heroRectSize, w+3*heroRectSize, CV_8UC3, cBg );
+
+    for ( Hero & hero : heroes ) {
+
+        cv::Point x ( hero.x-heroRectSize+dispShift, hero.y-heroRectSize+dispShift );
+        cv::Point y ( hero.x+heroRectSize+dispShift, hero.y+heroRectSize+dispShift );
+
+        cv::rectangle ( src, x, y, cBorderAndText );
+
+        cv::putText ( src, hero.name, x, cv::FONT_HERSHEY_SIMPLEX, .35, cBorderAndText, 1 );
+
+        cv::Point xc ( hero.x+dispShift , hero.y+dispShift );
+
+        cv::circle ( src, xc, 11, cCenter, CV_FILLED, 8, 0 );
+
+        cv::Mat box = src ( cv::Rect ( x, y ) );
+
+        cv::Mat cbox ( 2*heroRectSize, 2*heroRectSize, CV_8UC3, cBoxes );
+        box = cbox*.3 + box*.7;
+
+    }
+
+    cv::Mat comp;
+
+    cv::Point focusx ( heroes[0].x- ( 3*heroRectSize ) /2+dispShift, heroes[0].y- ( 3*heroRectSize ) /2+dispShift );
+    cv::Point focusy ( heroes[0].x+ ( 3*heroRectSize ) /2+dispShift, heroes[0].y+ ( 3*heroRectSize ) /2+dispShift );
+    cv::Mat focus = src ( cv::Rect ( focusx, focusy ) );
+
+    cv::compare ( prev, focus, comp, cv::CMP_NE );
+
+    cv::Mat aRgb;
+    cv::extractChannel ( comp, aRgb, 0 );
+
+    bps = cv::countNonZero ( aRgb ) * 10;
+
+    //qDebug()  << bps << " bits/sec";
+
+    prev = focus;
+
+    QImage dest ( src.data, src.cols, src.rows, src.step, QImage::Format_RGB888 );
+    dest=dest.rgbSwapped();
+    dest.bits();
+
+    emit heroesChanged ( dest, heroes[0].x, heroes[0].y );
+
+}]]>
+        </programlisting>
+        <para>
+            Ebben a függvényben adja ki a signalt. Ezzel:
+            <function> emit heroesChanged ( dest, heroes[0].x, heroes[0].y );</function>
+        </para>
+        <programlisting language="c++">
+<![CDATA[void BrainBWin::updateHeroes ( const QImage &image, const int &x, const int &y )
+{
+
+        if ( start && !brainBThread->get_paused() ) {
+
+                int dist = ( this->mouse_x - x ) * ( this->mouse_x - x ) + ( this->mouse_y - y ) * ( this->mouse_y - y );
+
+                if ( dist > 121 ) {
+                        ++nofLost;
+                        nofFound = 0;
+                        if ( nofLost > 12 ) {
+
+                                if ( state == found && firstLost ) {
+                                        found2lost.push_back ( brainBThread->get_bps() );
+                                }
+
+                                firstLost = true;
+
+                                state = lost;
+                                nofLost = 0;
+                                //qDebug() << "LOST";
+                                //double mean = brainBThread->meanLost();
+                                //qDebug() << mean;
+
+                                brainBThread->decComp();
+                        }
+                } else {
+                        ++nofFound;
+                        nofLost = 0;
+                        if ( nofFound > 12 ) {
+
+                                if ( state == lost && firstLost ) {
+                                        lost2found.push_back ( brainBThread->get_bps() );
+                                }
+
+                                state = found;
+                                nofFound = 0;
+                                //qDebug() << "FOUND";
+                                //double mean = brainBThread->meanFound();
+                                //qDebug() << mean;
+
+                                brainBThread->incComp();
+                        }
+
+                }
+
+        }
+        pixmap = QPixmap::fromImage ( image );
+        update();
+}]]>
+        </programlisting>
+        <para>
+            És ez a függvény fog lefutni mitán megkpata a signalt.
+        </para>
+        <programlisting language="c++">
+<![CDATA[void BrainBThread::run()
+{
+        while ( time < endTime ) {
+
+                QThread::msleep ( delay );
+
+                if ( !paused ) {
+
+                        ++time;
+
+                        devel();
+
+                }
+
+                draw();
+
+        }
+
+        emit endAndStats ( endTime );
+
+}]]>
+        </programlisting>
+        <para>
+            Az endAndStats-nál ez a függvény fog signalozni. Ezzel:
+            <function>emit endAndStats ( endTime );</function>
+        </para>
+        <programlisting language="c++">
+<![CDATA[void BrainBWin::endAndStats ( const int &t )
+{
+
+        qDebug()  << "\n\n\n";
+        qDebug()  << "Thank you for using " + appName;
+        qDebug()  << "The result can be found in the directory " + statDir;
+        qDebug()  << "\n\n\n";
+
+        save ( t );
+        close();
+}]]>
+        </programlisting>
+        <para>
+            És ezt a függvényt fogja elindítani.
+        </para>
+        <para>
+            Csak, hogy lássuk a programot futás közben:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="BrainB.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
