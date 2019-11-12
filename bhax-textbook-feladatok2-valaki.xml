@@ -68,13 +68,6 @@
     </section>
     
     <section>
-        <title>OOCWC Boost ASIO hálózatkezelése</title>
-        <para>
-            
-        </para>
-    </section>
-    
-    <section>
         <title>SamuCam</title>
         <para>
             Azt a feladatot kaptuk, hogy a SamuCam projektben mutassunk rá a webkamera
@@ -407,13 +400,6 @@ connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
                 <imagedata fileref="BrainB.jpg"></imagedata>
             </imageobject>
         </mediaobject>
-    </section>
-    
-    <section>
-        <title>OSM térképre rajzolása</title>
-        <para>
-            
-        </para>
     </section>
 </chapter>
 
