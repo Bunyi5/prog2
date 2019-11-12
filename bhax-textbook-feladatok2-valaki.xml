@@ -9,7 +9,61 @@
     <section>
         <title>FUTURE tevékenység editor</title>
         <para>
-            
+            A feladatban egy hibát kellett kijavítani a programban. Ha egy ideig tesztelgetjük
+            a programot rögtön észre lehet venni, hogy csak egy Új altevékenységet lehet létrehozni.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="future1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="future1cmd.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Tehát hiába próbálunk 2 vagy több altevékenységet létrehozni mindig ezt a hibát
+            kapjuk ami fent a konzolon látszik. Ezt a bugot viszonylag egyszerűen lehetett orvosolni.
+        </para>
+        <programlisting language="java">
+<![CDATA[public TextFieldTreeCell(javafx.scene.control.TextArea propsEdit) {
+    this.propsEdit = propsEdit;
+    javafx.scene.control.MenuItem subaMenuItem = new javafx.scene.control.MenuItem("Új altevékenység");//"New subactivity");
+    addMenu.getItems().add(subaMenuItem);
+    subaMenuItem.setOnAction((javafx.event.ActionEvent evt) -> {
+        int i = 1;
+        while(true) {
+        java.io.File file = getTreeItem().getValue();
+
+             java.io.File f = new java.io.File(file.getPath() + System.getProperty("file.separator") + "Új altevékenység" + i);
+
+            if (f.mkdir()) {
+                javafx.scene.control.TreeItem<java.io.File> newAct
+//                           = new javafx.scene.control.TreeItem<java.io.File>(f, new javafx.scene.image.ImageView(actIcon));
+                       = new FileTreeItem(f, new javafx.scene.image.ImageView(actIcon));                            
+                getTreeItem().getChildren().add(newAct);
+                break;
+            } else {
+                ++i;
+                //System.err.println("Cannot create " + f.getPath());
+
+            }
+        }
+
+    });]]>
+        </programlisting>
+        <para>
+            Egy végtelen ciklust kellett létrehozni a mappák létrehozásához egy számlálóval,
+            így nem jöhet létre ugyanaz a mappa kétszer.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="future2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Így mostmár tetszőleges számú altevékenységet lehet létrehozni.
         </para>
     </section>
     
