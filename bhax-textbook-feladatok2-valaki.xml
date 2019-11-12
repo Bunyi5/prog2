@@ -23,8 +23,146 @@
     <section>
         <title>SamuCam</title>
         <para>
-            
+            Azt a feladatot kaptuk, hogy a SamuCam projektben mutassunk rá a webkamera
+            kezelésére. A program fordításához és futtatásához szükség van az opencv 2.4.9-es
+            verziójára és a Qt valamilyen verziójára is. Valamint a program könyvtárába kell
+            helyezni a lbpcascade_frontalface.xml-t.
         </para>
+        <programlisting language="c++">
+<![CDATA[SamuCam::SamuCam ( std::string videoStream, int width = 176, int height = 144 )
+  : videoStream ( videoStream ), width ( width ), height ( height )
+{
+  openVideoStream();
+}
+
+SamuCam::~SamuCam ()
+{
+}]]>
+        </programlisting>
+        <para>
+            A program a parancssori futtatáskor megadott argumentumként kapja meg az IP címet
+            ahonnan meg kell nyitnia a kamerát. Ha az eszközünkön lévő kamerát szeretnénk
+            megnyitni akkor meg kell adni egy device ID-t, ez alapesetben 0 jelent.
+        </para>
+        <programlisting language="c++">
+<![CDATA[void SamuCam::openVideoStream()
+{
+  videoCapture.open ( videostream );
+
+  videoCapture.set ( CV_CAP_PROP_FRAME_WIDTH, width );
+  videoCapture.set ( CV_CAP_PROP_FRAME_HEIGHT, height );
+  videoCapture.set ( CV_CAP_PROP_FPS, 10 );
+}]]>
+        </programlisting>
+        <para>
+            Az openVideoStream()-ben a videoCapture.open() függvénnyel megnyitjuk a kamerát.
+            A videoCapture.set()-tel pedig beállítjuk a szélességét, magasságát és az fps
+            számot.
+        </para>
+        <programlisting language="c++">
+<![CDATA[void SamuCam::run()
+{
+
+  cv::CascadeClassifier faceClassifier;
+
+  std::string faceXML = "lbpcascade_frontalface.xml"; // https://github.com/Itseez/opencv/tree/master/data/lbpcascades
+
+  if ( !faceClassifier.load ( faceXML ) )
+    {
+      qDebug() << "error: cannot found" << faceXML.c_str();
+      return;
+    }]]>
+        </programlisting>
+        <para>
+            A run() metóduson belül először példányosítunk egy CascadeClassifier-t ez
+            alkalmas az Opencv-ben az objektumok felismerésére. Ezután megnyitjuk a már
+            említett xml fájlt és ezt átadjuk a CascadeClassifier-nek, így válik lehetővé
+            az arc felismerés. Majd lekezeljük a hibát ha nem sikerül betölteni az xmlt.
+        </para>
+        <programlisting language="c++">
+<![CDATA[cv::Mat frame;
+while ( videoCapture.isOpened() )
+    {
+
+      QThread::msleep ( 50 );
+      while ( videoCapture.read ( frame ) )
+        {
+
+          if ( !frame.empty() )
+            {
+
+              cv::resize ( frame, frame, cv::Size ( 176, 144 ), 0, 0, cv::INTER_CUBIC );
+
+              std::vector<cv::Rect> faces;
+              cv::Mat grayFrame;
+
+              cv::cvtColor ( frame, grayFrame, cv::COLOR_BGR2GRAY );
+              cv::equalizeHist ( grayFrame, grayFrame );
+
+              faceClassifier.detectMultiScale ( grayFrame, faces, 1.1, 4, 0, cv::Size ( 60, 60 ) );
+
+              if ( faces.size() > 0 )
+                {
+
+                  cv::Mat onlyFace = frame ( faces[0] ).clone();
+
+                  QImage* face = new QImage ( onlyFace.data,
+                                              onlyFace.cols,
+                                              onlyFace.rows,
+                                              onlyFace.step,
+                                              QImage::Format_RGB888 );
+
+                  cv::Point x ( faces[0].x-1, faces[0].y-1 );
+                  cv::Point y ( faces[0].x + faces[0].width+2, faces[0].y + faces[0].height+2 );
+                  cv::rectangle ( frame, x, y, cv::Scalar ( 240, 230, 200 ) );
+
+
+                  emit  faceChanged ( face );
+                }
+
+              QImage*  webcam = new QImage ( frame.data,
+                                             frame.cols,
+                                             frame.rows,
+                                             frame.step,
+                                             QImage::Format_RGB888 );
+
+              emit  webcamChanged ( webcam );
+
+            }
+
+          QThread::msleep ( 80 );
+
+        }
+
+      if ( ! videoCapture.isOpened() )
+        {
+          openVideoStream();
+        }
+
+    }
+
+}
+]]>
+        </programlisting>
+        <para>
+            Létrehozunk egy Mat típusú  frame-et ebben tároljuk a kép adatokat. A run végén
+            következik ez a két szép egymásba ágyazott while ciklus. Ez addig fog futni amíg
+            a webkamera megvan nyitva ezt a videoCapture.isOpened()-el ellenőrizzük, ami
+            true-val tér vissza, ha megvan nyitva és false-al ha nincs. Ellenőrizzük, hogy a
+            kép nem üres. A resize-al újra méretezzük a képet. A cvtColor-al pedig átalakítjuk
+            szürkeskálásba a színes képet és az equalizeHist-el kiegyenlítjük a hisztogramot.
+            A detectMultiScale-el keressük meg a fejet a képen ezt kimentjük a faces-be.
+            Ezt adjuk át a SamuBrain-nek ami feldolgozza és frissíti a webcam képét és
+            az ismétlődik addig,amíg be nem zárjuk a programot.
+        </para>
+        <para>
+            A program futás közben:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="samucam.png"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
