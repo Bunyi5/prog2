@@ -74,13 +74,6 @@
     </section>
     
     <section>
-        <title>AOP</title>
-        <para>
-            
-        </para>
-    </section>
-    
-    <section>
         <title>Android Játék</title>
         <para>
             A feladatban egy Android játékot kellett írni. Én egy High-Low Game-t
@@ -294,8 +287,58 @@ protected void onCreate(Bundle savedInstanceState) {
     <section>
         <title>Junit teszt</title>
         <para>
-            
+            Egy binfa példát kellett junit tesztbe beledolgozni. Először
+            kiszámoltam az "abc" karakterek bináris kódját:
+            <function>011000010110001001100011</function>.
+            Ezután megrajzoltam a fát, kiszámoltam az átlagot, a mélységet és a
+            szórást.
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="junit1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Miután ezt megcsináltam JUnit teszt segítségével ellenőrizni kellett
+            Junit teszttel, hogy helyesek-e az értékek amiket kézzel számoltam.
+        </para>
+        <para>
+            Mi is az a JUnit? A JUnit egy keretrendszer a Java programozási
+            nyelvhez. A JUnit-ot egy osztály tesztelésére használják.
+            Minden tesztelés egy @Test annotációval kezdődik. Egy Assert típusú
+            metódust kell használni, hogy összevessük a várható eredményt a
+            valós eredménnyel.
+        </para>
+        <para>
+            Így teszteltem a Binfában a mélységet, átlagot és szórást:
+        </para>
+        <programlisting language="java">
+<![CDATA[import org.junit.jupiter.api.Test;
+
+class LZWBinFaTest {
+	LZWBinFa binfa = new LZWBinFa();
+
+	@Test
+	void test() {
+		for (char c : "011000010110001001100011".toCharArray())
+			binfa.egyBitFeldolg(c);
+		
+		org.junit.Assert.assertEquals(4, binfa.getMelyseg(), 0.0);
+		org.junit.Assert.assertEquals(3, binfa.getAtlag(), 0.001);
+		org.junit.Assert.assertEquals(0.81649, binfa.getSzoras(), 0.0001);
+	}
+
+}]]>
+        </programlisting>
+        <para>
+            Ahogy a képen látszik sikeresn tesztelte az értékeket és nem dobott
+            hibát.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="junit2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
 </chapter>
 
