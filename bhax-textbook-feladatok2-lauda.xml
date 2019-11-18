@@ -83,8 +83,212 @@
     <section>
         <title>Android Játék</title>
         <para>
-            
+            A feladatban egy Android játékot kellett írni. Én egy High-Low Game-t
+            írtam. Íme a kód:
         </para>
+        <programlisting language="java">
+<![CDATA[public class MainActivity extends AppCompatActivity {
+    private EditText txtGuess;
+    private Button btnGuess;
+    private TextView lblOutput;
+    private int theNumber;
+    private int numberOfTries = 0;
+
+    public void checkGuess() {
+        String guessText = txtGuess.getText().toString();
+        String message = "";
+        try {
+            int guess = Integer.parseInt(guessText);
+            if (guess < theNumber) {
+                message = guess + " is too low. Try again.";
+                Toast.makeText(MainActivity.this,
+                        6 - numberOfTries + " tries left",Toast.LENGTH_SHORT).show();
+            } else if (guess > theNumber) {
+                message = guess + " is too high. Try again.";
+                Toast.makeText(MainActivity.this,
+                        6 - numberOfTries + " tries left", Toast.LENGTH_SHORT).show();
+            }
+            numberOfTries++;
+            if (guess == theNumber) {
+                message = guess + " is correct. You win after " + numberOfTries + " tries!";
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                newGame();
+            }
+            if (numberOfTries == 7) {
+                message = "You lose! The number was " + theNumber + ".";
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                newGame();
+            }
+        } catch (Exception e) {
+            message = "Enter a whole number between 1 and 100.";
+        } finally {
+            lblOutput.setText(message);
+            txtGuess.requestFocus();
+            txtGuess.selectAll();
+        }
+    }
+
+    public void newGame() {
+        theNumber = (int) (Math.random() * 100 + 1);
+        numberOfTries = 0;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        txtGuess = findViewById(R.id.txtGuess);
+        btnGuess = findViewById(R.id.btnGuess);
+        lblOutput = findViewById(R.id.lblOutput);
+
+        newGame();
+        btnGuess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    checkGuess();
+            }
+        });
+        txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                checkGuess();
+                return true;
+            }
+        });
+    }]]>
+        </programlisting>
+        <para>De nézzük részekre bontva a kódot.</para>
+        <programlisting language="java">
+<![CDATA[private EditText txtGuess;
+private Button btnGuess;
+private TextView lblOutput;
+private int theNumber;
+private int numberOfTries = 0;]]>
+        </programlisting>
+        <para>
+            Először is létrehozom az osztály private változóit. A txtGuess-ben
+            fogom megkapni a felhasználó által tippelt számot. A btnGuess-el
+            fogom gombnyomásra ellenőrizni a megadott számot. Az lblOutput-tal
+            pedig tudtára adom a felhasználónak, hogy alá vagy fölé lőtt vagy
+            pontosan eltalálta a számot. A theNumber-ben fogom tárolni a helyes
+            számot és a numberOfTries-al fogom számolni, hány lehetősége van még
+            a felhasználónak kitalálni a számot.
+        </para>
+        <programlisting language="java">
+<![CDATA[@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+
+    txtGuess = findViewById(R.id.txtGuess);
+    btnGuess = findViewById(R.id.btnGuess);
+    lblOutput = findViewById(R.id.lblOutput);
+
+    newGame();
+    btnGuess.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+                checkGuess();
+        }
+    });
+    txtGuess.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            checkGuess();
+            return true;
+        }
+    });
+}]]>
+        </programlisting>
+        <para>
+            A program futttásakor az onCreate metódus fog legelőször futni.
+            Itt a txtGuess, btnGuess, lblOutput változókhoz hozzákapcsolom a
+            GUI-ban a részüket. Majd hozzáadok két Listener-t. Az egyik a Guess!
+            gombra fog figyelni, hogy ha megnyomják akkor ellenőrizze le a
+            tippelt szám helyes-e. A setOnEditorActionListener azt figyeli, ha
+            a szám begépelése után a pipára kattintunk akkor is ellenőrizze a
+            helyességet. A newGame() metódussal pedig elindítjuk a játékot.
+        </para>
+        <programlisting language="java">
+<![CDATA[public void newGame() {
+    theNumber = (int) (Math.random() * 100 + 1);
+    numberOfTries = 0;
+}]]>
+        </programlisting>
+        <para>
+            A newGame() a TheNumber-be kimenti a kitalálandó számot és lenullázza
+            a probálkozások számát.
+        </para>
+        <programlisting language="java">
+<![CDATA[public void checkGuess() {
+    String guessText = txtGuess.getText().toString();
+    String message = "";
+    try {
+        int guess = Integer.parseInt(guessText);
+        if (guess < theNumber) {
+            message = guess + " is too low. Try again.";
+            Toast.makeText(MainActivity.this,
+                    6 - numberOfTries + " tries left",Toast.LENGTH_SHORT).show();
+        } else if (guess > theNumber) {
+            message = guess + " is too high. Try again.";
+            Toast.makeText(MainActivity.this,
+                    6 - numberOfTries + " tries left", Toast.LENGTH_SHORT).show();
+        }
+        numberOfTries++;
+        if (guess == theNumber) {
+            message = guess + " is correct. You win after " + numberOfTries + " tries!";
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+            newGame();
+        }
+        if (numberOfTries == 7) {
+            message = "You lose! The number was " + theNumber + ".";
+            Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+            newGame();
+        }
+    } catch (Exception e) {
+        message = "Enter a whole number between 1 and 100.";
+    } finally {
+        lblOutput.setText(message);
+        txtGuess.requestFocus();
+        txtGuess.selectAll();
+    }
+}]]>
+        </programlisting>
+        <para>
+            A checkGuess() metódusban a guessText String típusú változóba kimentem
+            a felhasználó által megadott számot és egy message változót létrehozok,
+            ebben fogok visszaadni valamilyen üzenetet a felhasználónak.
+            A try-on belül nézem meg, hogy a szám nagyobb, kissebb vagy éppen
+            egyenlő és ehhez képest adok vissza üzenetet. Ha a felhasználó
+            nem számot vagy semmit sem adott meg az kivételt eredményez és a
+            catch blokk ezt elkapja. Minden próbálkozás után kiírom egy popup
+            üzenetben mennyi próbálkozás maradt még, ha elfogy a 7 próba a
+            felhasználó vesztett és új játék kezdődik.
+        </para>
+        <para>
+            Képek a játékról:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="android1.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="android2.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="android3.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="android4.png"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
