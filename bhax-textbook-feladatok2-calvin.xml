@@ -30,8 +30,33 @@
     <section>
         <title>Android telefonra a TF objektum detektálója</title>
         <para>
-            
+             A feladat az volt, hogy próbáljuk ki a tensorflow objektum detektálóját androidon.
+             Ez a program már elérhető Google Play-en így nem volt szükség arra, hogy
+             githubról klónozzam és onnan telepítsem androidra. A kipróbálás már egyszerű
+             csak ráirányítjuk a tárgyra amit szeretnénk, hogy felismerjen és már megy is.
         </para>
+        <para>
+            Itt probléma nélkül feismeri az egeret és a bőröndöt:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="TFobj1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="TFobj2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            A program azonban nem mindig pontos a hasonló alakú tárgyakat gyakran képes
+            összekeverni.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="TFobj3.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
