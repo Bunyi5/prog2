@@ -69,8 +69,36 @@
     <section>
         <title>Minecraft MALMO-s példa</title>
         <para>
-            
+            A feladatban életre kellett hívni a Minecraft Malmö-s példát. Ahhoz, hogy ezt
+            megtehessük szükség volt pár segédprogramra. Először is le kellett tölteni
+            a Minecraft Malmöt magát, majd fel kellett telepíteni a Python-t, az 1.8-as
+            OpenJDK-t, a CodeSynthesis XSD-t és az FFmpeg-t. Miután a segédprogramokat
+            telepítettük a környezeti változókba be kellett illeszteni az útvonalakat.
+            Legvégül el kellett indítani a Minecraft\launchClient.bat fájlt, ez lebuildeli
+            a szükséges dolgokat és elindítja a játékot a Malmö moddal.
         </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="minecraft_malmo1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Miután fut a Minecraft egy másik konzolból tudjuk indítani a Python példákat,
+            úgynevezett küldetéseket.
+            pl:<function>python .\tutorial_1.py</function>
+            A legelő küldetésben még nem történik semmi csak visszaszámol 10-től egy
+            számláló.
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="minecraft_malmo_2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="minecraft_malmo_jatek.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
 </chapter>
 
