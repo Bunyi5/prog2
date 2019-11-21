@@ -62,126 +62,93 @@
             Íme a kód:
         </para>
         <programlisting language="java">
-<![CDATA[import java.io.*;
+<![CDATA[import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
-public class Leet {
-
+public class LeetGood {
+    
+    private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e', 'f',
+                                           'g', 'h', 'i', 'j', 'k', 'l',
+                                           'm', 'n', 'o', 'p', 'q', 'r',
+                                           's', 't', 'u', 'v', 'w', 'x',
+                                           'y', 'z', ' '};
+    
+    private static String[] leet_alphabet = {"4", "8", "<", "|)", "3", "|=",
+                                          "9", "#", "1", "_|", "|<",
+                                          "|_", "|\\/|", "|\\|", "0",
+                                          "|2", "(,)", "|?", "$", "7",
+                                          "|_|", "\\/", "\\/\\/", "><",
+                                          "´/", "2", " "};
+    
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
     }
     
-    static String translator(String text) {
-        if (text.contains("a")) {
-            text = text.replace("a","4");
+    static String translator(String word) {
+        char[] wordArray = word.toCharArray();
+        StringBuilder res = new StringBuilder();
+        
+        for (int i = 0; i < wordArray.length; i++) {
+            for (int j = 0; j < english_alphabet.length; j++) {
+                if (wordArray[i] == english_alphabet[j]) {
+                    res.append(leet_alphabet[j]);
+                    break;
+                }
+            }
         }
-        if (text.contains("b")) {
-            text = text.replace("b","8");
-        }
-        if (text.contains("c")) {
-            text = text.replace("c","<");
-        }
-        if (text.contains("d")) {
-            text = text.replace("d","|)");
-        }
-        if (text.contains("e")) {
-            text = text.replace("e","3");
-        }
-        if (text.contains("f")) {
-            text = text.replace("f","|=");
-        }
-        if (text.contains("g")) {
-            text = text.replace("g","9");
-        }
-        if (text.contains("h")) {
-            text = text.replace("h","#");
-        }
-        if (text.contains("i")) {
-            text = text.replace("i","1");
-        }
-        if (text.contains("j")) {
-            text = text.replace("j","_|");
-        }
-        if (text.contains("k")) {
-            text = text.replace("k","|<");
-        }
-        if (text.contains("l")) {
-            text = text.replace("l","|_");
-        }
-		if (text.contains("m")) {
-            text = text.replace("m","|\\/|");
-        }
-        if (text.contains("n")) {
-            text = text.replace("n","|\\|");
-        }
-        if (text.contains("o")) {
-            text = text.replace("o","0");
-        }
-        if (text.contains("p")) {
-            text = text.replace("p","|2");
-        }
-        if (text.contains("q")) {
-            text = text.replace("q","(,)");
-        }
-        if (text.contains("r")) {
-            text = text.replace("r","|?");
-        }
-        if (text.contains("s")) {
-            text = text.replace("s","$");
-        }
-        if (text.contains("t")) {
-            text = text.replace("t","7");
-        }
-		if (text.contains("u")) {
-            text = text.replace("u","|_|");
-        }
-        if (text.contains("v")) {
-            text = text.replace("v","\\/");
-        }
-        if (text.contains("w")) {
-            text = text.replace("w","\\/\\/");
-        }
-        if (text.contains("x")) {
-            text = text.replace("x","><");
-        }
-        if (text.contains("y")) {
-            text = text.replace("y","´/");
-        }
-        if (text.contains("z")) {
-            text = text.replace("z","2");
-        }
-        return text;      
+        return res.toString();
     }
-    
+
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         
         System.out.print("Kérem a fálj nevét: ");
         String fileName = scanner.nextLine();
-        String fullFileContents =
-                readFile(fileName,StandardCharsets.UTF_8);  
+        
+        String fullFileContents = readFile(fileName,StandardCharsets.UTF_8);
         System.out.println("File beolvasva.");
+        
         fullFileContents = fullFileContents.toLowerCase();
         fullFileContents = translator(fullFileContents);
         System.out.println("File lefordítva.");
         
-        PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
+        PrintWriter writer = new PrintWriter("leet.txt", "UTF-8");
         writer.print(fullFileContents);
         writer.close();
-        System.out.println("A fordított szöveg az
-                            output.txt-ben megtalálható.");
+        System.out.println("A fordított szöveg az leet.txt-ben megtalálható.");
         
         scanner.close();
     }
+
 }]]>
         </programlisting>
         <para>
-            A feladat megoldásához a legegyszerűbb megoldást alkalmaztam az if() függvényt.
+            A feladat megoldásához tömböket alkalmaztam.
+        </para>
+        <programlisting language="java">
+<![CDATA[private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e', 'f',
+                                           'g', 'h', 'i', 'j', 'k', 'l',
+                                           'm', 'n', 'o', 'p', 'q', 'r',
+                                           's', 't', 'u', 'v', 'w', 'x',
+                                           'y', 'z', ' '};
+
+private static String[] leet_alphabet =  {"4", "8", "<", "|)", "3", "|=",
+                                          "9", "#", "1", "_|", "|<",
+                                          "|_", "|\\/|", "|\\|", "0",
+                                          "|2", "(,)", "|?", "$", "7",
+                                          "|_|", "\\/", "\\/\\/", "><",
+                                          "´/", "2", " "};]]>
+        </programlisting>
+        <para>
+            Létrehoztam egy char és egy String típusú tömböt. A char típusú tömbbe
+            kimentettem az angol abc betűit, a String típusúba pedig ugyanarra a tömb
+            pozícióba a neki megfelelő leet abc betűt.
         </para>
         <programlisting language="java">
 <![CDATA[static String readFile(String path, Charset encoding) throws IOException {
@@ -190,44 +157,55 @@ public class Leet {
 }]]>
         </programlisting>
         <para>
-            A readFile() metódussal először beolvasok egy szöveges fájlt. 
+            A readFile() metódus egy szöveges fájl beolvasására szolgál.
         </para>
         <programlisting language="java">
-<![CDATA[static String translator(String text) {
-    if (text.contains("a")) {
-        text = text.replace("a","4");
+<![CDATA[static String translator(String word) {
+    char[] wordArray = word.toCharArray();
+    StringBuilder res = new StringBuilder();
+    
+    for (int i = 0; i < wordArray.length; i++) {
+        for (int j = 0; j < english_alphabet.length; j++) {
+            if (wordArray[i] == english_alphabet[j]) {
+                res.append(leet_alphabet[j]);
+                break;
+            }
+        }
     }
+    return res.toString();
 }]]>
         </programlisting>
         <para>
-            A translator() metódusban történik a lényeg, a szöveget amit beolvastam átadom neki.
-            Ekkor ha a szöveg tartalmaz egy bizonyos karakter, jelen esetben egy "a" betűt akkor
-            mindenhol ahol "a" van a szövegben ott a replace() beípített metódussal kicserélem
-            a karaktert egy "4"-esre.
+            A translator() metódusban történik a lényeg, a szöveget amit beolvastam átadom neki,
+            majd átalakítom és kimentem egy char típúsú tömbbe. Példányosítok egy
+            StringBuilder típusú változót, hogy egy szövegbe tudjam fűzni a leet abc betűit.
+            Az első for ciklus végig lépked a tömb karakterein. A második for pedig az angol
+            abc karakterein lépked. Ha a tömb karaktere és az angol abc karatere megegyezik
+            akkor egy szövegbe fűzöm az angol abc-nek megfelelő leet abc betűt. Ha beléptem
+            az if metódusba egy break-el megtöröm a belső for ciklust hiszen csak egyel
+            lehet egyenlő így nem kell tovább néznem az abc betűit.
         </para>
         <programlisting language="java">
-<![CDATA[
-public static void main(String[] args) throws IOException {
+<![CDATA[public static void main(String[] args) throws IOException {
     Scanner scanner = new Scanner(System.in);
     
     System.out.print("Kérem a fálj nevét: ");
     String fileName = scanner.nextLine();
-    String fullFileContents =
-            readFile(fileName,StandardCharsets.UTF_8);  
+    
+    String fullFileContents = readFile(fileName,StandardCharsets.UTF_8);
     System.out.println("File beolvasva.");
+    
     fullFileContents = fullFileContents.toLowerCase();
     fullFileContents = translator(fullFileContents);
     System.out.println("File lefordítva.");
     
-    PrintWriter writer = new PrintWriter("output.txt", "UTF-8");
+    PrintWriter writer = new PrintWriter("leet.txt", "UTF-8");
     writer.print(fullFileContents);
     writer.close();
-    System.out.println("A fordított szöveg az
-                        output.txt-ben megtalálható.");
+    System.out.println("A fordított szöveg az leet.txt-ben megtalálható.");
     
     scanner.close();
-}
-]]>
+}]]>
         </programlisting>
         <para>
             A main metóduson belül bekérem a beolvasandó fájl nevét, beolvasom a fájlt.
