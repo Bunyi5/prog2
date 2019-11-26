@@ -17,8 +17,7 @@
             Íme a Java kód teljes egészében:
         </para>
         <programlisting language="java">
-        <![CDATA[
-public class PolarGenerator {
+<![CDATA[public class PolarGenerator {
 
     boolean nincsTarolt = true;
     double tarolt;
@@ -61,17 +60,14 @@ public class PolarGenerator {
         for(int i=0; i<10; ++i)
             System.out.println(g.kovetkezo());
     }
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A következő sorokban részenként magyarázom el mi történik a kódban.
         </para>
         <programlisting language="java">
-        <![CDATA[
-boolean nincsTarolt = true;
-double tarolt;
-        ]]>
+<![CDATA[boolean nincsTarolt = true;
+double tarolt;]]>
         </programlisting>
         <para>
             A PolárGenerátor classban létrehozunk két változót. Az egyik boolean típusú, amely
@@ -79,19 +75,16 @@ double tarolt;
             tartalmazza, amit korábban kiszámítottunk.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public PolarGenerator() {
+<![CDATA[public PolarGenerator() {
     nincsTarolt = true;
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             Ez a class publikus konstruktora, amely a nincsTarolt-at igazra állítja.
             Erre azért van szükség, hogy tudjuk éppen van-e tárolt érték vagy nincs.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public double kovetkezo() {
+<![CDATA[public double kovetkezo() {
     if(nincsTarolt) {
         double u1, u2, v1, v2, w;
         do {
@@ -115,8 +108,7 @@ public double kovetkezo() {
         nincsTarolt = !nincsTarolt;
         return tarolt;
     }
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             Ez a program lelke ahol a kovetkezo() metódus végzi a meghatározó 
@@ -126,15 +118,13 @@ public double kovetkezo() {
             visszaadni.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public static void main(String[] args) {
+<![CDATA[public static void main(String[] args) {
 
     PolarGenerator g = new PolarGenerator();
 
     for(int i=0; i<10; ++i)
         System.out.println(g.kovetkezo());
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A main metódusal indul el a program. Itt példányosítjuk a PolárGenerátor 
@@ -145,7 +135,7 @@ public static void main(String[] args) {
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="polarjavacmd.jpg" scale="90"/>
+                    <imagedata fileref="polarjavacmd.jpg" scale="150"/>
                 </imageobject>
         </mediaobject>
         <para>
@@ -155,15 +145,14 @@ public static void main(String[] args) {
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="polarjavaRandom.jpg"/>
+                    <imagedata fileref="polarjavaRandom.jpg" scale="110"/>
                 </imageobject>
         </mediaobject>
         <para>
             C++-ban így néz ki a teljes kód:
         </para>
-        <programlisting>
-        <![CDATA[
-#include <iostream>
+        <programlisting language="c++">
+<![CDATA[#include <iostream>
 #include <tgmath.h>
 #include <cstdlib>
 #include <time.h>
@@ -217,26 +206,22 @@ int main(int argc, char** argv) {
         cout << g.kovetkezo() << endl;
 
     return 0;
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A következő sorokban részenként magyarázom el mi történik a kódban.
         </para>
-        <programlisting>
-        <![CDATA[
-private:
+        <programlisting language="c++">
+<![CDATA[private:
     bool nincsTarolt;
-    double tarolt;
-        ]]>
+    double tarolt;]]>
         </programlisting>
         <para>
             Ez a Polárgenerátor class private része. Ez tartalmaz egy bool és egy double
             típusú változót. Ezek a változók csak az osztályon belül lesznek elérhetőek.
         </para>
-        <programlisting>
-        <![CDATA[
-public:
+        <programlisting language="c++">
+<![CDATA[public:
     PolarGenerator() {
         nincsTarolt = true;
         srand (time(NULL));
@@ -268,28 +253,24 @@ public:
             return tarolt;
         }
     }
-};
-        ]]>
+};]]>
         </programlisting>
         <para>
             Ez pedig a class public része, amelyben a változók és metódusok
             példányosítás után elérhetőek az osztályon kívül is.
         </para>
-        <programlisting>
-        <![CDATA[
-PolarGenerator() {
+        <programlisting language="c++">
+<![CDATA[PolarGenerator() {
     nincsTarolt = true;
     srand (time(NULL));
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             Az osztály nevével megegyező metódust konstruktornak nevezzük. Az ebben
             lévő kódok példányosításkor hajtódnak végre.
         </para>
-        <programlisting>
-        <![CDATA[
-double kovetkezo() {
+        <programlisting language="c++">
+<![CDATA[double kovetkezo() {
     if (nincsTarolt) {
         double u1, u2, v1, v2, w;
 
@@ -313,25 +294,22 @@ double kovetkezo() {
         nincsTarolt = !nincsTarolt;
         return tarolt;
     }
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A kovetkezo metódusban szinte semmilyen lényegi eltérés nincs a Java kódhoz
             képest. Ugyanaz történik ha nincsTarolt igaz akkor generál randomot, ha
             pedig hamis, akkor visszaadja az eltárolt értéket.
         </para>
-        <programlisting>
-        <![CDATA[
-int main(int argc, char** argv) {
+        <programlisting language="c++">
+<![CDATA[int main(int argc, char** argv) {
     PolarGenerator g;
 
     for (int i = 0; i < 10; ++i)
         cout << g.kovetkezo() << endl;
 
     return 0;
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A main metódusban szintén, mint a Javanál példányosítunk és egy for
@@ -342,14 +320,14 @@ int main(int argc, char** argv) {
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="polarcppcmd.jpg" scale="60"/>
+                    <imagedata fileref="polarcppcmd.jpg" scale="140"/>
                 </imageobject>
         </mediaobject>
     </section>
     
     <section>
         <title>"Gagyi"</title>
-        <programlisting>
+        <programlisting language="java">
 <![CDATA[while (x <=t && x>=t && t !=x);]]>
         </programlisting>
         <para>
@@ -357,8 +335,7 @@ int main(int argc, char** argv) {
             miért jön létre végtelen ciklus és bizonyosnál miért nem.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public class Gagyi {
+<![CDATA[public class Gagyi {
 
     public static void main (String[]args){
 
@@ -367,15 +344,13 @@ public class Gagyi {
 
     while (x <= t && x >= t && t != x);
     }
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             Például itt -128-nál nem jön létre végtelen ciklus.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public class GagyiInfinity {
+<![CDATA[public class GagyiInfinity {
 
     public static void main (String[]args){
 
@@ -384,20 +359,17 @@ public class GagyiInfinity {
 
     while (x <= t && x >= t && t != x);
     }
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             Azonban -129-el már végtelen ciklus jön létre.
         </para>
         <programlisting language="java">
-        <![CDATA[
-public static Integer valueOf(int i) {
+<![CDATA[public static Integer valueOf(int i) {
     if (i >= IntegerCache.low && i <= IntegerCache.high)
         return IntegerCache.cache[i + (-IntegerCache.low)];
     return new Integer(i);
-}
-        ]]>
+}]]>
         </programlisting>
         <para>
             A válasz, hogy miért jön létre -129-el végtelen ciklus, míg -128-al semmi
@@ -417,7 +389,7 @@ public static Integer valueOf(int i) {
             teljesül és nem jön létre végtelen ciklus.
         </para>
         <programlisting language="java">
-        <![CDATA[return new Integer(i);]]>
+<![CDATA[return new Integer(i);]]>
         </programlisting>
         <para>
             Ha nem esik bele viszont a poolba a szám akkor, itt látszik, hogy létrehoz
@@ -425,7 +397,6 @@ public static Integer valueOf(int i) {
             fog létrehozni és így a while ciklus feltétele igaz lesz és végtelen
             ciklust kapunk.
         </para>
-        
     </section>
 
     <section>
@@ -434,8 +405,8 @@ public static Integer valueOf(int i) {
             A feladat az volt, hogy írjunk egy olyan Java kódot ami NullPoinetException
             hibával kilép, ha nem követjük a Yoda conditionst. Íme a kód:
         </para>
-        <programlisting language="java"><![CDATA[
-public class Yoda {
+        <programlisting language="java">
+<![CDATA[public class Yoda {
 
     public static void main(String[] args) {
         
@@ -454,49 +425,53 @@ public class Yoda {
             System.out.println("False");
         }
     }
-}
-        ]]></programlisting>
-        <para> A Yoda conditions egy kódolási stílus, ahol a programkódot "fordítva" írjuk be, tehát
+}]]>
+        </programlisting>
+        <para>
+            A Yoda conditions egy kódolási stílus, ahol a programkódot "fordítva" írjuk be, tehát
             az értékadásnál a konstans értéket írjuk balra és jobbra kerül a változó amibe
             elmentjük. A nevét is erről a szokatlan megfordított kódírásról kapta, Yoda-ról aki a
-            Star Wars-ban hasonlóan nem szabályszerűen alkalmazza az angolt. </para>
-        <programlisting language="java"><![CDATA[
-int érték = 3;
+            Star Wars-ban hasonlóan nem szabályszerűen alkalmazza az angolt.
+        </para>
+        <programlisting language="java">
+<![CDATA[int érték = 3;
 if( érték == 3) {
     System.out.println("Igaz");
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Ez ahogy rendesen írnánk egy kódot.
         </para>
-        <programlisting language="java"><![CDATA[
-int érték = 3;
+        <programlisting language="java">
+<![CDATA[int érték = 3;
 if( 3 == érték) {
     System.out.println("Igaz");
-}
-        ]]></programlisting>
-        <para> Ugyanaz a kód Yoda conditions-t használva. Mindakettővel teljesen normálisan fog
-            működni a program. </para>
-        <programlisting language="java"><![CDATA[
-if ("something".equals(myString)) {
+}]]>
+        </programlisting>
+        <para>
+            Ugyanaz a kód Yoda conditions-t használva. Mindakettővel teljesen normálisan fog
+            működni a program.
+        </para>
+        <programlisting language="java">
+<![CDATA[if ("something".equals(myString)) {
     System.out.println("True");
 } else {
     System.out.println("False");
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Ez a rész egy tipiuksan Yoda conditions-t használva lett megírva. Látszik,
             hogy az equal metódus bal oldalára került a konstans, jelen esetben egy
             string. Az equal ezt hasonlítja össze a myStringben lévő null értékkel.
             Ekkor semmilyen hiba nem fordul elő egyszerűen hamis lesz a visszadott érték.
         </para>
-        <programlisting language="java"><![CDATA[
-if (myString.equals("something")) {
+        <programlisting language="java">
+<![CDATA[if (myString.equals("something")) {
     System.out.println("True");
 } else {
     System.out.println("False");
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Ezek a sorok azonban nem használják a Yoda conditions-t, így NullPointerException-t
             dobnak a Java-ban. Így a Yoda conditions-al elkerülhető néhány nem biztonságos
@@ -508,18 +483,21 @@ if (myString.equals("something")) {
                 </imageobject>
             </mediaobject>
         <para> Amint látszik a console-on is NullPointerException hibával kilép. </para>
-        <para> Azonban a Yoda conditions bírálói nagyban panaszkodnak az olvashatóság elvesztésére,
-            ha ezt a módszert alkalmazzuk. </para>
-        
+        <para>
+            Azonban a Yoda conditions bírálói nagyban panaszkodnak az olvashatóság elvesztésére,
+            ha ezt a módszert alkalmazzuk.
+        </para>
     </section>
 
     <section>
         <title>Kódolás from scratch</title>
-        <para> Egy olyan feladatot kaptunk, hogy írjuk meg a BBP algoritmus megvalósítását. Ez egy
+        <para>
+            Egy olyan feladatot kaptunk, hogy írjuk meg a BBP algoritmus megvalósítását. Ez egy
             olyan algoritmus ami kiszámítja a Pi hexadecinmális számjegyeit egy megadott helyen. Íme
-            a kód: </para>
-        <programlisting language="java"><![CDATA[
-public class BBP {
+            a kód:
+        </para>
+        <programlisting language="java">
+<![CDATA[public class BBP {
     String HexaJegyek;
 
     public BBP(int d) {
@@ -599,28 +577,28 @@ public class BBP {
     public static void main(String[] args) {
         System.out.println(new BBP(1000000));
     }
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Nézzük részekre bontva:
         </para>
-        <programlisting language="java"><![CDATA[
-String HexaJegyek;
-        ]]></programlisting>
+        <programlisting language="java"><![CDATA[String HexaJegyek;]]></programlisting>
         <para> Először is létrehozunk a BBP classban egy változót. Ebben a változóban fogjuk tárolni
             a végeredményt, tehát a Pi hexadecimális jegyeit az adott helyen. </para>
         <para> Nézzük először a metódusokat, mert csak azután lehet megérteni a konstruktor
             működését. </para>
-        <programlisting language="java"><![CDATA[
-public String toString() {
+        <programlisting language="java">
+<![CDATA[public String toString() {
     return HexaJegyek;
-}
-        ]]></programlisting>
-        <para> Legegyszerűbb a a toString() metódussal kezdeni. Ez egyszerűen visszaadja a végső
+}]]>
+        </programlisting>
+        <para>
+            Legegyszerűbb a a toString() metódussal kezdeni. Ez egyszerűen visszaadja a végső
             eredményt egy stringként, de ebben az esetben az eredményünk eleve string típusú így
-            nincs más dolgunk csak azt visszaadni. </para>
-        <programlisting language="java"><![CDATA[
-public long n16modk(int n, int k) {
+            nincs más dolgunk csak azt visszaadni.
+        </para>
+        <programlisting language="java">
+<![CDATA[public long n16modk(int n, int k) {
 
     int t = 1;
     while(t <=n)
@@ -644,13 +622,13 @@ public long n16modk(int n, int k) {
     }
     
     return r;
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Az n16modk metódusban számoljuk ki bináris hatványozással a 16^n mod k értékét.
         </para>
-        <programlisting language="java"><![CDATA[
-public double Sj(int d, int j) {
+        <programlisting language="java">
+<![CDATA[public double Sj(int d, int j) {
 
     double Sj = 0.0;
 
@@ -658,14 +636,14 @@ public double Sj(int d, int j) {
         Sj += (double)n16modk(d-k, 8*k + j) / (double)(8*k + j);
 
     return Sj - Math.floor(Sj);
-}
-        ]]></programlisting>
+}]]>
+        </programlisting>
         <para>
             Az Sj metódus egy double értékkel fog visszatérni. A BBP algoritmus képlet
             alapján fogja visszaadni ezt a számot.
         </para>
-        <programlisting language="java"><![CDATA[
-public BBP(int d) {
+        <programlisting language="java">
+<![CDATA[public BBP(int d) {
 
     double HexPi = 0.0;
 
@@ -697,12 +675,14 @@ public BBP(int d) {
     }
 
     HexaJegyek = sb.toString();
-}
-        ]]></programlisting>
-        <para> Ez a rész a konstruktora a BBP classnak, ez mindenképpen le fog futni amikor
-            példányosítják a függvényt. Nézzük ezt is részekre bontva: </para>
-        <programlisting language="java"><![CDATA[
-double HexPi = 0.0;
+}]]>
+        </programlisting>
+        <para>
+            Ez a rész a konstruktora a BBP classnak, ez mindenképpen le fog futni amikor
+            példányosítják a függvényt. Nézzük ezt is részekre bontva:
+        </para>
+        <programlisting language="java">
+<![CDATA[double HexPi = 0.0;
 
 double S1 = Sj(d, 1);
 double S4 = Sj(d, 4);
@@ -711,14 +691,16 @@ double S6 = Sj(d, 6);
 
 HexPi = 4.0*S1 - 2.0*S4 - S5 - S6;
 
-HexPi = HexPi - Math.floor(HexPi);
-        ]]></programlisting>
-        <para> Először is létrehoz 5 db változót. A HexPi-t azért, hogy legyen miben tárolni a
+HexPi = HexPi - Math.floor(HexPi);]]>
+        </programlisting>
+        <para>
+            Először is létrehoz 5 db változót. A HexPi-t azért, hogy legyen miben tárolni a
             számot amit a képlet kiszámolása után megkapunk. Az S1, S4, S5, S6 változók részelemek
             az alatta lévő képletben. A d változó az a szám itt amit a felhasználó ad meg, hogy
-            hányadik helyen számolja a Pi hexadecimális értékét. </para>
-        <programlisting language="java"><![CDATA[
-StringBuffer sb = new StringBuffer();
+            hányadik helyen számolja a Pi hexadecimális értékét.
+        </para>
+        <programlisting language="java">
+<![CDATA[StringBuffer sb = new StringBuffer();
 
 Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
 
@@ -736,20 +718,24 @@ while(HexPi != 0.0) {
 
 }
 
-HexaJegyek = sb.toString();
-        ]]></programlisting>
-        <para> Itt létrehozunk egy StringBuffert amiben ideiglenesen elmentjük a hexadecimális
+HexaJegyek = sb.toString();]]>
+        </programlisting>
+        <para>
+            Itt létrehozunk egy StringBuffert amiben ideiglenesen elmentjük a hexadecimális
             számokat stringként. Egy Character típusú tömböt is alkotunk, ebben tároljuk a 16-os
             számrendszerben jelenlévő karaktereket. A while cikluson belül a stringbuffer-hez
-            hozzáfűzzük a hexa számjegyeket, majd a legalján átadjuk a HexaJegyek nevű stringnek. </para>
-        <programlisting language="java"><![CDATA[
-public static void main(String[] args) {
+            hozzáfűzzük a hexa számjegyeket, majd a legalján átadjuk a HexaJegyek nevű stringnek.
+        </para>
+        <programlisting language="java">
+<![CDATA[public static void main(String[] args) {
     System.out.println(new BBP(1000000));
-}    
-        ]]></programlisting>
-        <para> A main metódusban a kiíratáson belül egy példányosítást láthatunk 10^6 értékkel.
+}]]>
+        </programlisting>
+        <para>
+            A main metódusban a kiíratáson belül egy példányosítást láthatunk 10^6 értékkel.
             Tehát a program a Pi 1 milliomodik helyen lévő hexadecimális számjegyeit fogja
-            visszaadni. Ahogy látható is: </para>
+            visszaadni. Ahogy látható is:
+        </para>
         <mediaobject>
             <imageobject>
                 <imagedata fileref="BBPjavacmd.jpg"></imagedata>
