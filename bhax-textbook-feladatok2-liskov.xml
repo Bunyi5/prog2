@@ -52,7 +52,7 @@ public static void main(String[] args) {
         <para>
             C++ kód:
         </para>
-        <programlisting>
+        <programlisting language="c++">
 <![CDATA[class Macska {
 public:
 	virtual void szőrös() {};
@@ -173,7 +173,7 @@ class Szulo_Gyerek {
         <para>
             C++-ban:
         </para>
-        <programlisting>
+        <programlisting language="c++">
 <![CDATA[#include <iostream>
 
 class Szulo {
@@ -264,7 +264,32 @@ int main() {
             mondani, hogy a memória kiosztást sokkal jobban kezeli, mint a többi nyelv. Valamint a
             JVM jobban optimalizálja a metódus hívásokat. Futás időben dinamikus elemzést tud
             végezni, hogy mire van szükség és mire nem, így gyorsabb működést képes nyújtani, mint
-            egy C++ fordítóprogram. </para>
+            egy C++ fordítóprogram.
+        </para>
+        <programlisting language="c++">
+<![CDATA[for (d = 1000000; d < 1000001; ++d)
+    {
+
+      d16Pi = 0.0;
+
+      d16S1t = d16Sj (d, 1);
+      d16S4t = d16Sj (d, 4);
+      d16S5t = d16Sj (d, 5);
+      d16S6t = d16Sj (d, 6);
+
+      d16Pi = 4.0 * d16S1t - 2.0 * d16S4t - d16S5t - d16S6t;
+
+      d16Pi = d16Pi - floor (d16Pi);
+
+      jegy = (int) floor (16.0 * d16Pi);
+
+    }]]>
+        </programlisting>
+        <para>
+            A d-t változtatva lehetett megadni a programnak, hogy 10^6-on, 10^7-en vagy
+            10^8-on számjegyet szeretnénk megkapni. Java-ben ugyanígy csak ott paraméterként
+            adtam át a számot.
+        </para>
     </section>
     
     <section>
