@@ -72,18 +72,19 @@ import java.util.Scanner;
 
 public class LeetGood {
     
-    private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e', 'f',
-                                           'g', 'h', 'i', 'j', 'k', 'l',
-                                           'm', 'n', 'o', 'p', 'q', 'r',
-                                           's', 't', 'u', 'v', 'w', 'x',
-                                           'y', 'z', ' '};
+    private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e',
+                                              'f', 'g', 'h', 'i', 'j',
+                                              'k', 'l', 'm', 'n', 'o',
+                                              'p', 'q', 'r', 's', 't',
+                                              'u', 'v', 'w', 'x', 'y',
+                                              'z', ' '};
     
-    private static String[] leet_alphabet = {"4", "8", "<", "|)", "3", "|=",
-                                          "9", "#", "1", "_|", "|<",
-                                          "|_", "|\\/|", "|\\|", "0",
-                                          "|2", "(,)", "|?", "$", "7",
-                                          "|_|", "\\/", "\\/\\/", "><",
-                                          "´/", "2", " "};
+    private static String[] leet_alphabet = {"4", "8", "<", "|)", "3",
+                                             "|=", "9", "#", "1", "_|",
+                                             "|<", "|_", "|\\/|", "|\\|",
+                                             "0", "|2", "(,)", "|?", "$",
+                                             "7", "|_|", "\\/", "\\/\\/",
+                                             "><", "´/", "2", " "};
     
     static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
@@ -132,18 +133,19 @@ public class LeetGood {
             A feladat megoldásához tömböket alkalmaztam.
         </para>
         <programlisting language="java">
-<![CDATA[private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e', 'f',
-                                           'g', 'h', 'i', 'j', 'k', 'l',
-                                           'm', 'n', 'o', 'p', 'q', 'r',
-                                           's', 't', 'u', 'v', 'w', 'x',
-                                           'y', 'z', ' '};
+<![CDATA[private static char[] english_alphabet = {'a', 'b', 'c', 'd', 'e',
+                                          'f', 'g', 'h', 'i', 'j',
+                                          'k', 'l', 'm', 'n', 'o',
+                                          'p', 'q', 'r', 's', 't',
+                                          'u', 'v', 'w', 'x', 'y',
+                                          'z', ' '};
 
-private static String[] leet_alphabet =  {"4", "8", "<", "|)", "3", "|=",
-                                          "9", "#", "1", "_|", "|<",
-                                          "|_", "|\\/|", "|\\|", "0",
-                                          "|2", "(,)", "|?", "$", "7",
-                                          "|_|", "\\/", "\\/\\/", "><",
-                                          "´/", "2", " "};]]>
+private static String[] leet_alphabet = {"4", "8", "<", "|)", "3",
+                                         "|=", "9", "#", "1", "_|",
+                                         "|<", "|_", "|\\/|", "|\\|",
+                                         "0", "|2", "(,)", "|?", "$",
+                                         "7", "|_|", "\\/", "\\/\\/",
+                                         "><", "´/", "2", " "};]]>
         </programlisting>
         <para>
             Létrehoztam egy char és egy String típusú tömböt. A char típusú tömbbe
