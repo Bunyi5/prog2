@@ -575,7 +575,12 @@ int main (int argc, char **argv){
         <para>
             A main metódusban először beolvassuk a képet. Létrehozzuk a size-ot, amely
             a kép pixel méretét fogja tartalmazni. Majd példányosítjuk a Perceptron
-            osztályt. Itt látszik a változó paraméterű konstruktor haszna. Ezután végig
+            osztályt. Itt látszik a változó paraméterű konstruktor haszna.
+            Mivel több szűrő szintet tudunk használni. Az első szám, jelen esetben ez 3
+            megadja, hogy hány szint lesz. A többi szám minden szinthez a unit-ok számát
+            tartalmazza. Ezt mentjük, majd el az n_units tömmbe és létrehozunk még egy
+            számára megfelelő méretű double tömböt is. Ezután feltöltjük a weights-et
+            az értékeknek megfelelően. Ezután végig
             megyünk a kép szélességén és magasságán, a megfelelő piros értékeket kiírjuk
             az image tömbbe. A második for ciklussal felülírjuk a zöld értékeket. Végül
             kimentjük az új képet és felszabadítjuk a memóriát.
