@@ -10,7 +10,7 @@
         <title>Gengszterek</title>
         <para>
             A C++11 vezette be a lambda kifejezést, ez teszi lehetővé számunkra, hogy inline
-            függvényeket írjunk. Ezek rövid kódrészeletek, amelyeket nem használunk újra és
+            függvényeket írjunk. Ezek rövid kódrészletek, amelyeket nem használunk újra és
             nem érdemes megnevezni. Így kell definiálni:
         </para>
         <programlisting language="c++">
@@ -194,7 +194,9 @@ for (pair<string, int> elem : sortedMap)
         <para>
             Ezt az interfacet is mint ahogy a többit az implements kulcsszóval lehet
             implementálni. Valamint az interface kacsacsőrei között meg kell adni egy T
-            típusú objektumot. A compareTo metódusnak egy Csapat objektumot kell megadni.
+            generikus paramétert. Ennek az a célja, hogy így fordításkor egy erősebb
+            fordításidejű típusellenőrzést kapunk. Itt ez a típusparaméter a Csapat
+            osztály lesz. A compareTo metódusnak egy Csapat objektumot kell megadni.
             Ha az objektum amihez hasonlítunk kisebb, mint az amit a zárójelen belül adunk
             meg akkor -1-el, ha nagyobb akkor 1-el, ha egyenlő akkor 0-val tér vissza.
         </para>
@@ -202,10 +204,25 @@ for (pair<string, int> elem : sortedMap)
 <![CDATA[java.util.List<Csapat> rendezettCsapatok = java.util.Arrays.asList(csapatok);
 java.util.Collections.sort(rendezettCsapatok);]]>
         </programlisting>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="altertab2.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
         <para>
-            Azért kellett itt a Comparable interfacet implementálni mivel a sort azaz
-            a rendezés csak olyan listákon működik amelynek minden eleme implemetálja ezt.
-            Így probléma nélkül megtudjuk rá hívni a Collections.sort metódusát.
+            A Java Dokumentációjában ahogy látszik, ahhoz, hogy a rendezés működjön a
+            listákon minden elemnek implemetálni kell a Comparable interfacet.
+            Ezt megkerestem a java.util.Collections forrásban is:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="altertab1.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Itt azt láthatjuk, hogy a T-nek vagy annak egy altípusának implementálni kell a
+            Comparable interfacet. Az extends kulcsszó a T után itt álatalánosan használatos, azaz
+            osztálynál extends lesz, interfacenél pedig implements.
         </para>
     </section>
     
@@ -250,4 +267,3 @@ java.util.Collections.sort(rendezettCsapatok);]]>
         </mediaobject>
     </section>
 </chapter>
-
