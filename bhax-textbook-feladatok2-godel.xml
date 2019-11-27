@@ -262,7 +262,7 @@ java.util.Collections.sort(rendezettCsapatok);]]>
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="gimp.jpg"></imagedata>
+                <imagedata fileref="gimp.jpg" scale="90"></imagedata>
             </imageobject>
         </mediaobject>
     </section>
