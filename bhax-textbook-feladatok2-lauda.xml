@@ -264,24 +264,15 @@ protected void onCreate(Bundle savedInstanceState) {
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="android1.png"></imagedata>
+                  <imagedata fileref="android1.png" scale="25"></imagedata>
             </imageobject>
         </mediaobject>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="android2.png"></imagedata>
+                <imagedata fileref="android2.png" scale="25"></imagedata>
             </imageobject>
         </mediaobject>
-        <mediaobject>
-            <imageobject>
-                <imagedata fileref="android3.png"></imagedata>
-            </imageobject>
-        </mediaobject>
-        <mediaobject>
-            <imageobject>
-                <imagedata fileref="android4.png"></imagedata>
-            </imageobject>
-        </mediaobject>
+
     </section>
     
     <section>
@@ -295,7 +286,7 @@ protected void onCreate(Bundle savedInstanceState) {
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="junit1.jpg"></imagedata>
+                <imagedata fileref="junit1.jpg" scale="19"></imagedata>
             </imageobject>
         </mediaobject>
         <para>
