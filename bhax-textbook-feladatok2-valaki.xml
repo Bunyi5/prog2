@@ -237,6 +237,15 @@ connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
           this, SLOT ( endAndStats ( int ) ) );]]>
         </programlisting>
         <para>
+            Ez a csatolás már elavultnak számít a Qt 5 óta. Mostmár ilyen formában kell
+            csatolni: <function>connect(sender, &#38;Sender::valueChanged,receiver,
+            &#38;Receiver::updateValue);</function>. Az új szintaxis mellett szól, hogy
+            fordítási időben tudjuk ellenőrizni a signal-ok és slot-ok létezését, az
+            argumantumnak típusdefiníciót is megadhatunk, valamint a QObject bármely
+            függvényéhez tudunk csatlakozni. Ellene szól, hogy bonyolultabb a szintaxis
+            főleg akkor amikor túlszeretnénk terhelni egy operátort.
+        </para>
+        <para>
             Itt az történik, hogy ha a herosChanged signal befut akkor az az updateHeros
             függvényt elindítja, ugyanez az endAndStat-nál.
         </para>
@@ -347,7 +356,7 @@ connect ( brainBThread, SIGNAL ( endAndStats ( int ) ),
 }]]>
         </programlisting>
         <para>
-            És ez a függvény fog lefutni mitán megkpata a signalt.
+            És ez a függvény fog lefutni mitán megkapta a signalt.
         </para>
         <programlisting language="c++">
 <![CDATA[void BrainBThread::run()
