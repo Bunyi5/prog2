@@ -9,22 +9,151 @@
     <section>
         <title>MNIST</title>
         <para>
-            
+            Az MNIST egy nagyméretű kézzelírott számjegyeket tartalmazó adatbázis.
+            Több mint 60000 képet tartalmaz az adatbázis. Széles körben használják a gépi
+            tanulás területén. A legtöbb kép a NIST adatbáziból származik. A kutatók
+            próbálják a legkisebb hibaarány elérést a számok felismerésében.
+            Nekünk is az volt a cél, hogy ismerejen fel az adatbázisból egy számot és egy
+            általunk kézzel írt számot is.
         </para>
-    </section>
-    
-    <section>
-        <title>Deep MNIST</title>
         <para>
-            
+            Ahhoz, hogy a program működjön felkellett tenni egy pár csomagot. A python3-at,
+            a pip3-at, a kerast és létre kellett hoznunk egy virtuális környezetet is.
         </para>
-    </section>
-    
-    <section>
-        <title>CIFAR-10</title>
+        <programlisting language="python">
+<![CDATA[import keras
+from keras.datasets import fashion_mnist 
+from keras.layers import Dense, Activation, Flatten, Conv2D, MaxPooling2D
+from keras.models import Sequential
+from keras.utils import to_categorical,np_utils
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import os]]>
+        </programlisting>
         <para>
-            
+            Először beimportáljuk a szükséges könyvtárakat. A keras-t, numpy-t,
+            matplotlib.pyplot-ot és a tensorflow-t.
         </para>
+        <programlisting language="python"><![CDATA[(train_X,train_Y), (test_X,test_Y) = tf.keras.datasets.mnist.load_data()]]></programlisting>
+        <para>
+            Ezzel a sorral betöltjük az adathalmazt amit használni szeretnénk.
+        </para>
+        <programlisting language="python">
+<![CDATA[train_X = train_X.reshape(-1, 28,28, 1)/255
+test_X = test_X.reshape(-1, 28,28, 1)/255
+train_X = train_X.astype('float32')
+test_X = test_X.astype('float32')]]>
+        </programlisting>
+        <para>
+            A reshape() függvénnyel átformáljuk az adatainkat 4 dimenzióssá, mivel
+            eddig 3 volt, azért jól működjön a Keras Api-val. Valamint elosztjuk
+            az értékeket 255-el, hogy normalizáljunk, mivel ha neurális hálóval dolgozunk ezt
+            mindig meg kell tenni és átalakítjuk az értékeket float32-be, hogy biztosan
+            ebben a típusban legyenek.
+        </para>
+        <programlisting language="python">
+<![CDATA[train_Y_one_hot = to_categorical(train_Y)
+test_Y_one_hot = to_categorical(test_Y)]]>
+        </programlisting>
+        <para>
+            Konvertáljuk az osztályvektorokat bináris osztálymátrixokká.
+        </para>
+        <programlisting language="python">
+<![CDATA[model = Sequential()
+
+model.add(Conv2D(64, (3,3), input_shape=(28, 28, 1)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Conv2D(64, (3,3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Conv2D(64, (3,3)))
+model.add(Activation('relu'))
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Flatten())
+model.add(Dense(64))
+
+model.add(Dense(10))
+model.add(Activation('softmax'))]]>
+        </programlisting>
+        <para>
+            Felépítjük a modellt. Az add() függvénnyel egymásra helyezzük a rétegeket.
+        </para>
+        <programlisting language="python">
+<![CDATA[model.compile(loss=keras.losses.categorical_crossentropy, 
+optimizer=keras.optimizers.Adam(),metrics=['accuracy'])
+
+model.fit(train_X, train_Y_one_hot, batch_size=256, epochs=1)]]>
+        </programlisting>
+        <para>
+            A compile() függvénnyel beállítjuk a tanulási folyamatot és optimalizálunk.
+            A fit()-tel fogjuk tanítani a hálózatot. Átadjuk, neki a train_X és
+            train_Y_one_hot többdimenzós tömböket. Az epochs-al fogjuk megmondani hányszor
+            menjen végig a tanulandó anyagon.
+        </para>
+        <programlisting language="python">
+<![CDATA[test_loss, test_acc = model.evaluate(test_X, test_Y_one_hot)
+print('Test loss', test_loss)
+print('Test accuracy', test_acc)
+
+predictions = model.predict(test_X)]]>
+        </programlisting>
+        <para>
+            Kiíratjuk, hogy mennyi adatot vesztett el és milyen pontosra sikerült a
+            modell.
+        </para>
+        <programlisting language="python">
+<![CDATA[plt.imshow(test_X[9].reshape(28, 28), cmap = plt.cm.binary)
+plt.show()
+print(np.argmax(np.round(predictions[9])))
+
+plt.imshow(test_X[10].reshape(28, 28), cmap = plt.cm.binary)
+plt.show()
+print(np.argmax(np.round(predictions[10])))
+
+img = Image.open('nyolc.png').convert("L")
+img = np.resize(img,(28,28,1))
+im2arr = np.array(img)
+im2arr = im2arr.reshape(1,28,28,1)
+y_pred = model.predict_classes(im2arr)
+print(y_pred)
+
+plt.imshow(im2arr[0].reshape(28,28), cmap = plt.cm.binary )
+plt.show()]]>
+        </programlisting>
+        <para>
+            Megnézzük, hogy a 9 és 10-es képet minek ismeri fel, majd beadunk neki egy
+            saját kézzel rajzolt képet is. Ahogy látszik a képen a pontosság csak
+            0.87, de így is tökéletesen felismerte a képeken a számokat:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="mnist.jpg"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <para>
+            Ezeket a képeket ismerte fel:
+        </para>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="mnistnine.png" scale="80"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="mnistzero.png" scale="90"></imagedata>
+            </imageobject>
+        </mediaobject>
+        <mediaobject>
+            <imageobject>
+                <imagedata fileref="mnisteight.png" scale="90"></imagedata>
+            </imageobject>
+        </mediaobject>
     </section>
     
     <section>
@@ -40,7 +169,7 @@
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="TFobj1.jpg"></imagedata>
+                <imagedata fileref="TFobj1.jpg" scale="40"></imagedata>
             </imageobject>
         </mediaobject>
         <mediaobject>
@@ -54,16 +183,9 @@
         </para>
         <mediaobject>
             <imageobject>
-                <imagedata fileref="TFobj3.jpg"></imagedata>
+                <imagedata fileref="TFobj3.jpg" scale="45"></imagedata>
             </imageobject>
         </mediaobject>
-    </section>
-    
-    <section>
-        <title>SMNIST for Machines</title>
-        <para>
-            
-        </para>
     </section>
     
     <section>
